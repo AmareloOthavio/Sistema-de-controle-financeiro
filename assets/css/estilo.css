@@ -3,3 +3,10 @@
     padding: 0;
     text-decoration: none;
 }
+
+header {
+    background-color: #ec5a1e;
+    height: 60px;
+    width: 100%;
+}
+

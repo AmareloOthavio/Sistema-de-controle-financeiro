@@ -15,7 +15,7 @@ header {
 }
 
 .logo {
-    width: 220px;
+    width: 200px;
 }
 
 .svg {
@@ -313,6 +313,8 @@ footer {
 
 .Parte2Rodape {
     background-color: black;
+    margin-bottom: -130px;
+
 }
 
 
@@ -331,6 +333,7 @@ footer {
 
 .LogoRodape {
     width: 300px;
+    margin-left: 100px;
 }
 
 .ImgsRodape {

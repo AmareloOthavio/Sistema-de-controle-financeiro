@@ -7,198 +7,78 @@
     <title>Planeja Facil</title>
 </head>
 <body>
-    <header>
-        <img class="svg" src="assets/img/wave (1).svg" alt="" />
-        
-        <a href="index.html"><img class="logo" src="assets/img/Logofinancas-removebg-preview.png" alt="logo"></a>
-    <nav>
-        <div class="btns">
-            <a href="#NossaEmpresa"><button class="btn">NOSSA EMPRESA</button></a>
-            <a href="despesas.html"><button class="btn">ADICIONAR DESPESA</button></a>
-            <a href="receitas.html"><button class="btn">ADICIONAR RECEITA</button></a>
+    <header class="header">
+
+        <div class="Logo-Header">
+            <img class="Logo" src="assets/img/Logo_Oficial.png" alt="Logo">
         </div>
-    </nav>
+        
+        <div class="Container-Header">
+            <div class="Textos-Header">
+
+                <h1 class="Titulo-Header">Você no comando de <br> seus <span style="color: #D1DBBD;">investimentos</span>.</h1>
+
+                <p class="Subtitulo-Header">
+                    Domine seus investimentos com confiança e <br>
+                    alcance suas metas financeiras!
+                </p>
+
+            </div>
+
+            <div class="Caixa-Login">
+
+                <p class="title-caixa-login">Acesse a Área de Monitoramento</p>
+
+                <div class="Labels-Inputs">
+                    <div class="Login-Email">
+                        <label for="">E-mail</label>
+                        <input type="email" required>
+                    </div>
+
+                    <div class="Login-Senha">
+                        <label for="">Senha</label>
+                        <input type="password" required>
+                    </div>
+                </div>
+
+                <button  class="Btn-Entrar" type="submit">Entrar</button>
+
+                <div class="Container-BoxLogin">
+                    <p>Não tem uma conta?</p>
+                    <a class="Link-Cadastro" href="">Criar agora</a>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <main class="main">
+    <section class="section1">
+        <div class="Container-Section1">
 
-        <img class="imgmain" src="assets/img/mulherimg.png" alt="">
+            <h1 class="Titulo-Section1">Nossa missão</h1>
 
-        <div class="textmain">
-            <p>
-                Descubra uma nova forma de gerenciar suas 
-                finanças pessoais com facilidade e eficiência.
-                Nossa plataforma foi projetada para ajudar
-                você a controlar suas despesas, planejar
-                seu orçamento e alcançar suas metas financeiras.
-                Com ferramentas intuitivas e recursos
-                personalizados, estamos aqui para guiá-lo
-                em sua jornada rumo à liberdade financeira.
-                Comece hoje mesmo e transforme sua
-                relação com o dinheiro!
-            </p>
-        </div>
-
-    </main>
-
-    <section class="sec1" id="NossaEmpresa">
-
-        <div class="BoxInformation1">
-
-            <h2>Conheça nossa empresa</h2>
-
-            <p>
-                Bem-vindo ao Planeja Fácil, sua ferramenta essencial para o gerenciamento financeiro pessoal.
-                Nosso objetivo é ajudar você a entender e controlar suas finanças de maneira simples e eficaz.
-                Com uma interface intuitiva e recursos poderosos, oferecemos uma variedade de serviços,
-                como planejamento orçamentário, rastreamento de despesas, e dicas personalizadas para alcançar
-                suas metas financeiras. <br>
-                Acreditamos que uma boa gestão financeira é a chave para uma vida mais tranquila e realizada.
-                Junte-se a nós e transforme sua relação com o dinheiro!
+            <p class="textos-section1">
+                Na Planeja Fácil, acreditamos que a gestão financeira é essencial para alcançar seus sonhos. <br>
+                Nossa missão é ajudar você a entender e controlar suas finanças de forma simples e eficaz.
             </p>
 
-        </div>
+            <p class="textos-section1">
+                Oferecemos ferramentas intuitivas que facilitam a identificação de receitas e despesas, <br>
+                promovendo um planejamento financeiro saudável. Queremos que você se sinta confiante <br>
+                nas suas decisões, buscando sempre mais segurança e liberdade.
+            </p>
 
+            <div class="">
+                <p>Junte-se a nós e transforme sua relação com o dinheiro!</p>
+            </div>
+
+            <div>
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+            </div>
+        </div>
     </section>
 
-    <section class="sec2">
-
-        <h2>Receitas e despesas</h2>
-
-        <div class="BoxSaldo">
-
-            <p>Saldo Atual:</p>
-
-            <p id="SaldoAtual">R$</p>
-
-        </div>
-
-        <div class="BoxReceitaDespesas">
-            <div class="BoxReceitas">
-
-                <h1>RECEITAS</h1>
-            
-                <div class="InfoReceitas">
-                    <div class="ValoresReceita">
-                        <p>Valor:</p>
-                        <p>Fonte:</p>
-                        <p>Data:</p>
-                    </div>
-
-
-                    <div class="EditarExcluir">
-                        <a href=""><img class="imgEditar" src="assets/img/editar.png" alt=""></a>
-                        <a href=""><img class="imgExcluir" src="assets/img/lixeira.png" alt=""></a>
-                    </div>
-                </div>
-
-                <a href="receitas.html"><img class="ImgAdicao" src="assets/img/adicao.png" alt=""></a>
-
-            </div>
-
-            <div class="BoxDespesas">
-
-                <h1>DESPESAS</h1>
-
-                <div class="InfoDespesas">
-                    <div class="ValoresDespesas">
-                        <p>Valor:</p>
-                        <p>Descrição:</p>
-                        <p>Data:</p>
-                    </div>
-
-
-                    <div class="EditarExcluir   ">
-                        <a href=""><img class="imgEditar" src="assets/img/editar.png" alt=""></a>
-                        <a href=""><img class="imgExcluir" src="assets/img/lixeira.png" alt=""></a>
-                    </div>
-
-                </div>
-
-                <a href="despesas.html"><img class="ImgAdicao" src="assets/img/adicao.png" alt=""></a>
-
-            </div>
-        </div>
-   </section>
-
-   <section class="sec3">
-
-        <div class="box1">
-
-            <img class="imgbox" src="assets/img/calendario.png" alt="">
-
-            <p>
-                Organize a suas finanças de um 
-                jeito fácil e rápido.
-            </p>
-
-        </div>
-
-        <div class="box1">
-
-            <img class="imgbox" src="assets/img/calculadora.png" alt="">
-
-            <p>
-                Você está tendo lucro ou prejuízo?
-                Com nosso sistema é fácil de saber.
-            </p>
-
-        </div>
-
-
-        <div class="box1">
-
-            <img class="imgbox" src="assets/img/lucro.png" alt="">
-
-            <p>
-                Tenha noção do que esstá acontecendo no mercado atual
-                e veja quais são as melhores opões.
-            </p>
-
-        </div>
-
-   </section>
-
-
-   <footer>
-
-    <div class="Parte1Rodape">
-        <img class="svg2" src="assets/img/wave (5).svg" alt="">
-
-        <div>
-            <h1 class="TituloRodape">QUER SABER MAIS?</h1>
-
-            <button class="btn2">FALE COM ESPECIALISTAS</button>
-        </div>
-    </div>
-
-
-    <div class="Parte2Rodape">
-        <img src="assets/img/wave (4).svg" alt="">
-
-    </div>
-
-    <div class="ItensRodape2">
-        <div class="TextRodape">
-            <p>Birigui - São Paulo / SP <br>
-
-                +55 18 998364627 <br>
-                
-                planejafacil@gmail.com</p>
-        </div>
-
-        <div>
-            <img  class="LogoRodape" src="assets/img/Logofinancas-removebg-preview.png" alt="">
-        </div>
-
-        <div class="BoxImgsRodape">
-            <a href=""><img class="ImgsRodape" src="assets/img/youtube.png" alt=""></a>
-            <a href=""><img class="ImgsRodape" src="assets/img/facebook.png" alt=""></a>
-            <a href=""><img class="ImgsRodape" src="assets/img/instagram.png" alt=""></a>
-        </div>
-    </div>
-
-   </footer>
 
 
 </body>

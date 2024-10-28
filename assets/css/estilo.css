@@ -1,343 +1,156 @@
 * {
+    overflow-x: hidden;
     margin: 0;
     padding: 0;
     text-decoration: none;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-header {
-    background-color: #FF8630;
+.header {
     width: 100%;
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    height: 600px;
+    background: url(../img/Imagem_fundo_cabeçalho.webp) no-repeat center;
+    background-size: cover;
 }
 
-.logo {
-    width: 220px;
-}
-
-.svg {
+.header::before {
+    content: "";
     position: absolute;
-    top: 15px;
+    top: 0;
     left: 0;
-    z-index: -1;
-    filter: drop-shadow(0px 4px 0px black);
+    width: 100%;
+    height: 600px;
+    background-color: rgba(25, 52, 65, 0.93);
+    z-index: 1;
 }
 
-.empresa {
+.Logo{
+    width: 90px;
+}
+
+.Logo-Header {
+    left: 150px;
+    top: 50px;
+    position: relative;
+    z-index: 2;
+}
+
+.Titulo-Header {
     color: white;
+    font-size: 50px;
+    position: relative;
+    z-index: 2;
 }
 
-.btn1 {
-    background: none;
-    border: 3px white solid;
-    height: 30px;
-    width: 170px;
-    font-weight: bolder;
-    border-radius: 10px;
+.Subtitulo-Header{
+    color: white;
+    font-size: 25px;
+    margin-top: 20px;
+    position: relative;
+    z-index: 2;
 }
 
-.btn {
-    background: white;
+.Container-Header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+label {
+    font-size: 23px;
+}
+
+input {
     border: none;
-    height: 40px;
-    width: 190px;
-    font-weight: bolder;
+    background-color: #D1DBBD;
+    border-radius: 10px;
+    width: 300px;
+    height: 38px;
     font-size: 15px;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0px 0px 20px;
+    padding: 0 0.714em;
 }
 
-.btns {
-    display: flex;
-    gap: 50px;
-    margin-right: 100px;
-}
-
-.main{ 
-    padding-top: 230px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.imgmain {
-    width: 250px;
-}
-
-.textmain {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 100px;
-    width: 400px;
-    height: 250px;
-    border-left: 2px solid #FF8630;
-    font-size: 18px;
-    text-align: justify;
-}
-
-.sec1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 100px;
-}
-
-.BoxInformation1 {
+.Labels-Inputs {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #D9D9D9;
-    width: 1100px;
-    height: 200px;
-    border-radius: 15px;
-    gap: 30px;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    gap: 20px;
 }
 
-.sec1 .BoxInformation1 h2 {
-    color: #FF8630;
-}
-
-.sec1 .BoxInformation1 p{
-    text-align: justify;
-    padding: 0 100px;
-    line-height: 20px;
-}
-
-.sec2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 50px;
-}
-
-.sec2 h2 {
-    padding-top: 100px;
-}
-
-.BoxSaldo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    background-color: #D9D9D9;
-    border-radius: 15px;
-    font-size: 19px;
-    height: 80px;
-    width: 300px;
-}
-
-.BoxReceitaDespesas {
-    display: flex;
-    gap: 50px;
-}
-
-.BoxReceitas{
-    background-color: #D9D9D9;
-    width: 500px;
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 20px;
-    border-radius: 10px;
-}
-
-.BoxReceitas h1{
-    color: #45C05A;
-    font-weight: 800;
+.title-caixa-login {
     font-size: 25px;
+    margin-bottom: 20px;
 }
 
-.BoxDespesas {
-    background-color: #D9D9D9;
-    width: 500px;
-    height: 500px;
+.Login-Email {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    padding-top: 20px;
-    border-radius: 10px;
+    gap: 20px;
 }
 
-.BoxDespesas h1{
-    color: #C04545;
-    font-weight: 800;
-    font-size: 25px;
-}
-
-.InfoReceitas {
+.Login-Senha {
     display: flex;
-    justify-content: space-around;
     align-items: center;
-    background-color: #ADFEAB;
-    margin-top: 30px;
-    height: 100px;
-    width: 500px;
+    gap: 20px;
 }
 
-.ValoresReceita {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.EditarExcluir {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.imgEditar {
-    width: 25px;
-}
-
-.imgExcluir {
-    width: 25px;
-}
-
-.BtnEditar {
-    background-color: #FF9046;
-    border-radius: 5px;
-    border: none;
-    font-weight: bolder;
-    height: 30px;
-    width: 90px;
-    cursor: pointer;
-}
-
-.BtnExcluir {
-    background-color: #FF0000;
-    border-radius: 5px;
-    font-weight: bolder;
-    border: none;
-    height: 30px;
-    width: 90px;
-    cursor: pointer;
-}
-
-.InfoDespesas {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #FEABAB;
-    margin-top: 30px;
-    height: 100px;
-    width: 500px;
-}
-
-.ValoresDespesas {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.ImgAdicao {
-    width: 50px;
-    padding-top: 30px;
-}
-
-.sec3{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding-top: 200px;
-}
-
-.box1 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: justify;
+.Caixa-Login {
+    width: 450px;
+    height: 350px;
     background-color: white;
-    border-radius: 15px;
-    box-shadow: 0px 0px 15px black;
-    height: 250px;
-    width: 300px;
-    padding: 0px 20px;
-}
-
-.imgbox {
-    width: 55px;
-    padding-bottom: 50px;
-    padding-left: 30px;
-}
-
-.box1 p{
-    padding: 0px 20px;
-    font-size: 19px;
-}
-
-.svg2 {
-    position: absolute;
-    bottom: 0px;
-    left: 0;
-    z-index: -1;
-}
-
-.Parte1Rodape {
-    position: relative;
+    border-radius: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+    z-index: 2;
 }
 
-.TituloRodape{
-    color: white;
-    padding-bottom: 30px;
-    font-size: 35px;
-}
-
-.btn2 {
-    color: white;
-    background-color: #EC7826;
-    font-size: 18px;
-    cursor: pointer;
-    border: none;
-    border-radius: 10px;
-    width: 310px;
-    height: 40px;
-}
-
-footer {
-    margin-top: 400px;
-}
-
-.Parte2Rodape {
-    background-color: black;
-}
-
-
-.ItensRodape2 {
+.Container-BoxLogin {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
     align-items: center;
-    background-color: #EC7826;
+    font-size: 20px;
 }
 
-.TextRodape {
+.Btn-Entrar {
+    width: 140px;
+    height: 45px;
+    border-radius: 10px;
+    border: none;
     color: white;
-    text-align: center;
-    font-weight: 500;
+    background-color: #3E606F;
+    font-size: 20px;
+    cursor: pointer;
 }
 
-.LogoRodape {
-    width: 300px;
+.Link-Cadastro {
+    text-decoration: underline;
+    color: #91AA9D;
 }
 
-.ImgsRodape {
-    width: 70px;
+.section1 {
+    
 }
 
-.BoxImgsRodape {
+.Container-Section1 {
     display: flex;
-    gap: 30px;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+}
+
+.Titulo-Section1{
+    color: rgba(25, 52, 65, 0.93);
+    font-size: 35px;
+    font-weight: 500;
+
+}
+
+.textos-section1 {
+    font-size: 20px;
+    text-align: left;
 }

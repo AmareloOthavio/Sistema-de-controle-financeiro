@@ -119,6 +119,10 @@ footer {
     margin-top: 500px;
 }
 
+.Parte2Rodape{
+    margin-bottom: -130px;
+}
+
 .ItensRodape2 {
     display: flex;
     justify-content: space-around;
@@ -134,6 +138,7 @@ footer {
 
 .LogoRodape {
     width: 300px;
+    margin-left: 100px;
 }
 
 .ImgsRodape {

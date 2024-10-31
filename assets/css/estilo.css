@@ -6,6 +6,10 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+body {
+    background-color: rgba(252, 255, 245, 1);
+}
+
 .header {
     width: 100%;
     height: 600px;
@@ -29,7 +33,7 @@
 }
 
 .Logo-Header {
-    left: 150px;
+    left: 75px;
     top: 50px;
     position: relative;
     z-index: 2;
@@ -98,7 +102,7 @@ input {
 .Caixa-Login {
     width: 450px;
     height: 350px;
-    background-color: white;
+    background-color: rgba(252, 255, 245, 1);
     border-radius: 50px;
     display: flex;
     flex-direction: column;
@@ -136,7 +140,6 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
 }
 
 .Container-Section1 {
@@ -163,7 +166,8 @@ input {
 
 .texto-sec1 {
     font-size: 22px;
-    text-align: left;
+    text-align: justify;
+    padding: 0 30px;
 }
 
 .texto2-section1{
@@ -183,11 +187,12 @@ input {
 }
 
 .img-section1{
-    width: 60px;
+    width: 270px;
 }
 
 .section2 {
     background-color: rgba(25, 52, 65, 0.93);
+    padding-bottom: 60px;
 }
 
 .Container-Section2 {
@@ -201,28 +206,40 @@ input {
     color: white;
     font-weight: 100;
     font-size: 35px;
+    padding: 50px 0;
+}
+
+.Blocos {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 30px;
 }
 
 .Bloco{
-    width: 400px;
-    height: 350px;
-    background-color: white;
+    width: 370px;
+    height: 300px;
+    background-color: rgba(252, 255, 245, 1);
     border-radius: 50px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 20px;
+    justify-content: end;
 }
 
 .img-bloco {
     width: 80px;
-
-
+    margin-left: 20px;
 }
 
 .ajuste {
     display: flex;
     flex-direction: column;
+    margin-left: 20px;
+    margin-bottom: 40px;
+    gap: 15px;
+}
+
+.div-img{
+    padding-bottom: 10px;
 }
 
 .titulo-bloco {
@@ -233,4 +250,53 @@ input {
 
 .texto-bloco {
     font-size: 20px;
+    font-weight: 100;
+}
+
+.section3{
+    display: flex;
+    justify-content: center;
+    padding: 100px 0;
+}
+
+.Bloco-Duvidas {
+    background-color: rgba(217, 217, 217, 1);
+    width: 1100px;
+    height: 300px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Titulo-section3 {
+    padding: 0 60px;
+}
+
+.texto-sec3{
+    padding: 0 150px;
+    font-size: 17px;
+}
+
+.botoes-duvida{
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
+    gap: 30px;
+}
+
+.btn-duvidas {
+    width: 250px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: rgba(145, 170, 157, 1);
+    color: white;
+    border: none;
+    font-size: 15px;
+}
+
+.titulo-texto {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

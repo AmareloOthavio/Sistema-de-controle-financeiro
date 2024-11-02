@@ -64,6 +64,7 @@ body {
 
 label {
     font-size: 23px;
+    font-family: Kantumruy Pro;
 }
 
 input {
@@ -86,12 +87,13 @@ input {
 .title-caixa-login {
     font-size: 25px;
     margin-bottom: 20px;
+    font-family: Kantumruy Pro;
 }
 
 .Login-Email {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
 }
 
 .Login-Senha {
@@ -130,6 +132,12 @@ input {
     background-color: #3E606F;
     font-size: 20px;
     cursor: pointer;
+    transition: background-color 0.6s ease;
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+}
+
+.Btn-Entrar:hover {
+    background-color: #304752;
 }
 
 .Link-Cadastro {

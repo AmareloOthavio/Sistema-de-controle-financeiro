@@ -74,6 +74,7 @@ input {
     height: 38px;
     font-size: 15px;
     padding: 0 0.714em;
+    outline: none;
 }
 
 .Labels-Inputs {
@@ -256,26 +257,25 @@ input {
 .section3{
     display: flex;
     justify-content: center;
-    padding: 100px 0;
+    padding: 23vh 0;
 }
 
 .Bloco-Duvidas {
     background-color: rgba(217, 217, 217, 1);
-    width: 1100px;
-    height: 300px;
-    border-radius: 20px;
+    width: 71%;
+    padding: 50px;
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .Titulo-section3 {
-    padding: 0 60px;
+    font-size: 26px;
 }
 
 .texto-sec3{
-    padding: 0 150px;
-    font-size: 17px;
+    font-size: 22px;
 }
 
 .botoes-duvida{
@@ -286,17 +286,104 @@ input {
 }
 
 .btn-duvidas {
-    width: 250px;
-    height: 40px;
+    width: 35vh;
+    height: 6vh;
     border-radius: 10px;
     background-color: rgba(145, 170, 157, 1);
     color: white;
     border: none;
-    font-size: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-duvidas:hover {
+    background-color: #7B9484;
 }
 
 .titulo-texto {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
+}
+
+footer {
+    background-color: rgba(145, 170, 157, 1);
+    width: 100%;
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.itens-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.texto-footer{
+    font-size: 20px;
+    font-family: Kantumruy Pro;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.texto-footer2 {
+    font-size: 20px;
+    font-family: Kantumruy Pro;
+    font-weight: 500;
+}
+
+.texto-footer::before {
+    margin-left: auto;
+}
+  
+.texto-footer::after {
+    content: '';
+    width: 0%;
+    height: 1.5px;
+    background: black;
+    display: block;
+    transition: 0.5s;
+}
+  
+.texto-footer:hover::after, .texto-footer:hover::before {
+    width: 100%;
+}
+
+.info-footer {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    gap: 130px;
+}
+
+.img-footer{
+    width: 45px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.img-footer:hover {
+    transform: scale(1.2);
+}
+
+.img-container {
+    width: 45px;
+    height: 45px;
+    padding: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgs-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
 }

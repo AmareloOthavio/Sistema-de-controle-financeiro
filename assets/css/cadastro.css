@@ -147,7 +147,7 @@ input {
 }
 
 .Logo{
-  width: 190px;
+  width: 160px;
 }
 
 .Logo-Cadastro {
@@ -160,4 +160,8 @@ input {
   margin-left: 300px
 }
 
-@media ()
+@media (min-width: 769px) and (max-width: 1024px){
+  
+  
+
+}

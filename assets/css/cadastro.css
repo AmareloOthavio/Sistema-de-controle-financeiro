@@ -71,6 +71,7 @@ input {
   font-size: 15px;
   padding: 0 0.714em;
   outline: none;
+  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
 }
 
 .Titulo-caixa-cadastro {
@@ -109,6 +110,7 @@ input {
   font-size: 20px;
   cursor: pointer;
   transition: background-color 0.5s ease;
+  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
 }
 
 .Btn-Criar:hover {

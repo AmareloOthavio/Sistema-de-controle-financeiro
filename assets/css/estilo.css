@@ -6,13 +6,17 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: rgba(252, 255, 245, 1);
 }
 
 .header {
     width: 100%;
-    height: 600px;
+    height: 520px;
     background: url(../img/Imagem_fundo_cabeçalho.webp) no-repeat center;
     background-size: cover;
 }
@@ -23,7 +27,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 600px;
+    height: 520px;
     background-color: rgba(25, 52, 65, 0.93);
     z-index: 1;
 }
@@ -63,8 +67,7 @@ body {
 }
 
 label {
-    font-size: 23px;
-    font-family: Kantumruy Pro;
+    font-size: 22px;
 }
 
 input {
@@ -87,13 +90,13 @@ input {
 .title-caixa-login {
     font-size: 25px;
     margin-bottom: 20px;
-    font-family: Kantumruy Pro;
+
 }
 
 .Login-Email {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 20px;
 }
 
 .Login-Senha {
@@ -106,7 +109,7 @@ input {
     width: 450px;
     height: 350px;
     background-color: rgba(252, 255, 245, 1);
-    border-radius: 50px;
+    border-radius: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -124,7 +127,7 @@ input {
 }
 
 .Btn-Entrar {
-    width: 140px;
+    width: 130px;
     height: 45px;
     border-radius: 10px;
     border: none;
@@ -283,7 +286,7 @@ input {
 }
 
 .texto-sec3{
-    font-size: 22px;
+    font-size: 19px;
 }
 
 .botoes-duvida{
@@ -294,13 +297,13 @@ input {
 }
 
 .btn-duvidas {
-    width: 35vh;
+    width: 40vh;
     height: 6vh;
     border-radius: 10px;
     background-color: rgba(145, 170, 157, 1);
     color: white;
     border: none;
-    font-size: 20px;
+    font-size: 18px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -328,10 +331,11 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 30px;
 }
 
 .texto-footer{
+    color: black;
     font-size: 20px;
     font-family: Kantumruy Pro;
     font-weight: 500;

@@ -28,8 +28,8 @@ body {
   display: flex;
   align-items: center;
   position: absolute;
-  top: 70px;
-  left: 200px;
+  top: 45px;
+  left: 95px;
   gap: 10px;
 }
 
@@ -45,7 +45,7 @@ body {
 
 .caixa-cadastro {
   background-color: #3E606F;
-  width: 130%;
+  width: 110%;
   height: 60vh;
   border: none;
   border-radius: 20px;
@@ -53,7 +53,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 30px;
+  gap: 20px;
 }
 
 label {
@@ -124,7 +124,7 @@ input {
 }
 
 .Background-image {
-  width: 35%; /* Ocupa a metade direita da tela */
+  width: 30%;
   height: 100vh;
   background-image: url('../img/Imagem_fundo_cabeçalho.webp');
   background-size: cover;
@@ -139,8 +139,7 @@ input {
   content: "";
   position: absolute;
   top: 0;
-  righ: 0;
-  width: 35%;
+  width: 30%;
   height: 100vh;
   background-color: rgba(25, 52, 65, 0.93);
   z-index: 1;

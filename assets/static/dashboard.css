@@ -72,5 +72,11 @@ body {
     color: white;
     position: absolute;
     z-index: 3;
-    right: 100px;
+    right: 90px;
+    top: 30px;
+}
+
+.img-logout {
+    width: 75px;
+    cursor: pointer;
 }

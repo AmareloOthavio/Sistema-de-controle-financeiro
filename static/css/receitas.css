@@ -1,0 +1,151 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    background-color: #FF8630;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    width: 220px;
+}
+
+.svg {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    z-index: -1;
+    filter: drop-shadow(0px 4px 0px black);
+}
+
+.empresa {
+    color: white;
+}
+
+.btn1 {
+    background: none;
+    border: 3px white solid;
+    height: 30px;
+    width: 170px;
+    font-weight: bolder;
+    border-radius: 10px;
+}
+
+.btn {
+    background: white;
+    border: none;
+    height: 40px;
+    width: 190px;
+    font-weight: bolder;
+    font-size: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0px 0px 20px;
+}
+
+.btns {
+    display: flex;
+    gap: 50px;
+    margin-right: 100px;
+}
+
+.AdicionarReceita {
+    position: relative;
+    top: 350px;
+    left: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.BoxAdicionarReceita {
+    background-color: #FF8630;
+    border: 5px solid black;
+    border-radius: 15px;
+    height: 500px;
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 70px;
+}
+
+.Inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+label {
+    font-size: 21px;
+    min-width: 100px;
+    text-align: left;
+}
+
+input {
+    border: none;
+    border-radius: 10px;
+    width: 450px;
+    height: 30px;
+    padding: 1px;
+}
+
+.btnRegistrar {
+    height: 40px;
+    width: 200px;
+    border: none;
+    background-color: #FFCF76;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.Alinhar {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+footer {
+    margin-top: 500px;
+}
+
+.Parte2Rodape{
+    margin-bottom: -130px;
+}
+
+.ItensRodape2 {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #EC7826;
+}
+
+.TextRodape {
+    color: white;
+    text-align: center;
+    font-weight: 500;
+}
+
+.LogoRodape {
+    width: 300px;
+    margin-left: 100px;
+}
+
+.ImgsRodape {
+    width: 70px;
+}
+
+.BoxImgsRodape {
+    display: flex;
+    gap: 30px;
+}

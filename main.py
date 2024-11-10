@@ -10,11 +10,10 @@ password = 'sysdba'
 
 
 class Usuario:
-    def __init__(self, id_usuario, email, senha, saldo_atual):
+    def __init__(self, id_usuario, email, senha):
         self.id_usuario = id_usuario
         self.email = email
         self.senha = senha
-        self.saldo_atual = saldo_atual
 
 
 class Despesa:

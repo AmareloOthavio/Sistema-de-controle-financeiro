@@ -195,7 +195,7 @@ body {
 
 .caixa-historico{
     width: 93%;
-    height: 70vh;
+    height: 140vh;
     background-color: #193441;
     display: flex;
     flex-direction: column;

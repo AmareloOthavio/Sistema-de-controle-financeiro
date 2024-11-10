@@ -43,6 +43,7 @@ class Receita:
     de fazer um cadastro, ao retornar para a página inicial dava um erro
     de conexão com o banco de dados.
 """
+
 def conectar_no_banco():
     return fdb.connect(host=host, database=database, user=user, password=password)
 

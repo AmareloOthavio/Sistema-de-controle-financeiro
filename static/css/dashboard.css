@@ -34,7 +34,7 @@ body {
 }
 
 .Logo{
-    width: 80px;
+    width: 90px;
 }
 
 .logo-header {
@@ -54,6 +54,23 @@ body {
     margin-top: 20px;
     position: relative;
     z-index: 2;
+}
+
+.div-adicionar-movimentação{
+    position: relative;
+    top: 70px;
+    background-color: #BCD18D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    width: 250px;
+    height: 35px;
+}
+
+.adicionar-movimentação{
+    color: black;
+    font-size: 20px;
 }
 
 .Container-Header {
@@ -113,6 +130,15 @@ body {
     border: 1.5px solid black;
 }
 
+.Valor-Saida{
+    font-size: 23px;
+    width: 100%;
+    height: 70px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
 .blocoEntrada {
     width: 330px;
     height: 140px;
@@ -121,12 +147,30 @@ body {
     border: 1.5px solid black;
 }
 
+.Valor-Entrada{
+    font-size: 23px;
+    width: 100%;
+    height: 70px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
 .blocoTotal {
     width: 330px;
     height: 140px;
     background-color: #234353;
     border-radius: 10px;
     border: 1.5px solid black;
+}
+
+.Valor-Total {
+    font-size: 23px;
+    width: 100%;
+    height: 70px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 
 .text-blocoEntrada{
@@ -151,10 +195,12 @@ body {
 
 .caixa-historico{
     width: 93%;
-    height: 100vh;
+    height: 70vh;
     background-color: #193441;
     display: flex;
     flex-direction: column;
+    gap: 30px;
+    margin-bottom: 150px;
 }
 
 .text-caixa-historico{
@@ -173,7 +219,7 @@ body {
 .caixa-valores {
     background-color: #234353;
     width: 100%;
-    height: 60px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -191,8 +237,142 @@ body {
     margin: 0;
 }
 
+.texto-caixa-Saida {
+    color: #FF0000;
+    font-size: 20px;
+    margin: 0;
+}
+
 .texto-caixa-valores {
     color: white;
     font-size: 20px;
     margin: 0;
+}
+
+.div-imgs-caixa-valores {
+    display: flex;
+    gap: 25px;
+}
+
+.div-texto-entrada{
+    position: relative;
+    right: 54.5px;
+}
+
+.div-texto-saida{
+    position: relative;
+    right: 60.5px;
+}
+
+.div-data-entrada {
+    position: relative;
+    left: 91px;
+}
+
+.div-valor-entrada {
+    position: relative;
+    left: 107.5px;
+}
+
+.div-data-saida {
+    position: relative;
+    left: 100px;
+}
+
+.div-valor-saida {
+    position: relative;
+    left: 112.5px;
+}
+
+footer {
+    background-color: #193441;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.itens-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding-bottom: 50px;
+}
+
+.texto-footer{
+    color: white;
+    font-size: 17px;
+    font-family: Kantumruy Pro;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.texto-footer2 {
+    font-size: 20px;
+    font-family: Kantumruy Pro;
+    font-weight: 500;
+}
+
+.texto-footer::before {
+    margin-left: auto;
+}
+  
+.texto-footer::after {
+    content: '';
+    width: 0%;
+    height: 1.5px;
+    background: #91AA9D;
+    display: block;
+    transition: 0.5s;
+}
+  
+.texto-footer:hover::after, .texto-footer:hover::before {
+    width: 100%;
+}
+
+.info-footer {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    gap: 80px;
+}
+
+.img-footer{
+    width: 50px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.img-footer:hover {
+    transform: scale(1.2);
+}
+
+.img-container {
+    width: 65px;
+    height: 65px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgs-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.footerpart2 {
+    width: 100%;
+    height: 80px;
+    background-color: #3E606F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
 }

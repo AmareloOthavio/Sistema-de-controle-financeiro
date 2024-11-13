@@ -24,6 +24,18 @@ body {
   z-index: 4;
 }
 
+.fechar-aba {
+  position: fixed;
+  z-index: 5;
+  top: 20%;
+  left: 71%;
+
+}
+
+.img-fechar-aba {
+  width: 30px;
+}
+
 .adicionar-movimentacao {
   position: fixed;
   top: 50%;
@@ -139,7 +151,7 @@ input {
   border-radius: 5px;
   border: none;
   width: 350px;
-  height: 30px;
+  height: 35px;
   background-color: #D9D9D9;
   outline: none;
   padding: 0 0.714em;

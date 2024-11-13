@@ -24,6 +24,18 @@ body {
   z-index: 4;
 }
 
+.fechar-aba {
+  position: fixed;
+  z-index: 5;
+  top: 20%;
+  left: 71%;
+
+}
+
+.img-fechar-aba {
+  width: 30px;
+}
+
 .adicionar-movimentacao {
   position: fixed;
   top: 50%;
@@ -122,7 +134,7 @@ body {
 .div-add-data{
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 23px;
 }
 
 .div-add-valor {
@@ -138,8 +150,8 @@ label {
 input {
   border-radius: 5px;
   border: none;
-  width: 350px;
-  height: 30px;
+  width: 450px;
+  height: 35px;
   background-color: #D9D9D9;
   outline: none;
   padding: 0 0.714em;

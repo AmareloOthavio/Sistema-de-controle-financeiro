@@ -15,7 +15,7 @@
 
     <div class="overlay" id="over" style="display: none;"></div>
 
-    <form class="adicionar-movimentacao" id="add_movi" style="display: none;">
+    <form class="adicionar-movimentacao" action="/dashboard" method="post" id="add_movi" style="display: none;">
 
         <div class="fechar-aba" id="fechar">
             <img class="img-fechar-aba" src="../static/img/img-x.png" alt="">
@@ -33,24 +33,24 @@
             <button type="button" class="botao-movimentacao-entrada" id="entradaBtn">Entrada</button>
             <button type="button" class="botao-movimentacao-saida" id="saidaBtn">Saída</button>
 
-            <input type="hidden" id="tipo_input" name="tipo" value="">
+            <input type="hidden" id="tipo" name="tipo" value="entrada">
 
           </div>
         </div>
 
         <div class="div-add-fonte">
-            <label for="fonte">Fonte/Descrição:</label>
-            <input type="text" id="fonte_desc" placeholder="..." class="input" required>
+            <label for="fonte_desc">Fonte/Descrição:</label>
+            <input type="text" id="fonte_desc" name="fonte_desc" placeholder="..." class="input" required>
         </div>
 
         <div class="div-add-data">
           <label for="data">Adicione a data:</label>
-          <input type="date" id="data" class="input" required>
+          <input type="date" id="data" name="data" class="input" required>
         </div>
 
         <div class="div-add-valor">
           <label for="valor">Adicione o valor:</label>
-          <input type="number" id="valor" placeholder="R$ 0,00" class="input" required>
+          <input type="number" id="valor" name="valor" placeholder="R$ 0,00" class="input" required>
         </div>
       </div>
 
@@ -256,7 +256,7 @@
 
             const btn_entrada = document.getElementById("entradaBtn")
             const btn_saida = document.getElementById("saidaBtn")
-            const input = document.getElementById("tipo_input")
+            const input = document.getElementById("tipo")
     
             function entrada() {
                 input.value = "entrada"

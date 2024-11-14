@@ -78,14 +78,13 @@ def logout():
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
+    print('DASHBOARD')
     con = conectar_no_banco()
     if request.method == 'GET':
         cursor1 = con.cursor()
         cursor2 = con.cursor()
-        cursor3 = con.cursor()
 
         email = session['email']
-
         cursor1.execute('SELECT * FROM USUARIOS WHERE EMAIL = ?', (email,))
         usuario = cursor1.fetchone()
         id_usuario = usuario[0]
@@ -98,10 +97,39 @@ def dashboard():
         receitas = cursor1.fetchall()
         cursor1.close()
         cursor2.close()
-        cursor3.close()
-        print(receitas)
-        print(despesas)
+        con.close()
         return render_template('dashboard.html', nome=nome_usuario, despesas=despesas, receitas=receitas)
+    elif request.method == 'POST':
+        valor = request.form['valor']
+        data = request.form['data']
+        tipo = request.form['tipo']
+        fonte_desc = request.form['fonte_desc']
+
+        # Verifique se a execução chegou até aqui com um print
+        print('\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n')
+        print(f"POST RECEBIDO: Valor = {valor}, Data = {data}, Tipo = {tipo}, Fonte/Descrição = {fonte_desc}")
+
+        cursor3 = con.cursor()
+
+        email = session['email']
+        cursor3.execute('SELECT * FROM USUARIOS WHERE EMAIL = ?', (email,))
+        usuario = cursor3.fetchone()
+        id_usuario = usuario[0]
+
+        print(f"ID do Usuário: {id_usuario}")  # Verifique o ID do usuário
+
+        if tipo == 'saida':
+            print("Inserindo despesa...")
+            cursor3.execute('INSERT INTO DESPESAS (ID_USUARIO, VALOR, DESCRICAO, DATA) VALUES(?, ?, ?, ?)',
+                            (id_usuario, valor, fonte_desc, data))
+        elif tipo == 'entrada':
+            print("Inserindo receita...")
+            cursor3.execute('INSERT INTO RECEITAS (ID_USUARIO, VALOR,  FONTE, DATA) VALUES(?, ?, ?, ?)',
+                            (id_usuario, valor, fonte_desc, data))
+        con.commit()
+        con.close()
+
+        return redirect(url_for('dashboard'))
 
     con.close()
     return render_template('dashboard.html')
@@ -143,6 +171,52 @@ def excluir_despesa(id_despesa):
         con.close()
 
     return redirect(url_for('dashboard'))
+
+
+@app.route('/editar_despesa/<int:id_despesa>', methods=['GET', 'POST'])
+def editar_despesa(id_despesa):
+    con = conectar_no_banco()
+    if request.method == 'POST':
+        valor = request.form['valor']
+        data = request.form['data']
+        ano = data[6:10]
+        mes = data[3:5]
+        dia = data[0:2]
+        data = f'{ano}-{mes}-{dia}'  # dd/mm/aaaa -> aaaa-mm-dd
+        fonte_desc = request.form['fonte_desc']
+        cursor = con.cursor()
+
+        cursor.execute('UPDATE DESPESAS SET VALOR = ?, DATA = ?, DESCRICAO = ? WHERE ID_DESPESA = ?',
+                       (valor, data, fonte_desc, id_despesa))
+        con.commit()
+        cursor.close()
+        con.close()
+        return redirect(url_for('dashboard'))
+    elif request.method == 'GET':
+        return render_template('editar.html')
+
+
+@app.route('/editar_receita/<int:id_receita>', methods=['GET', 'POST'])
+def editar_receita(id_receita):
+    con = conectar_no_banco()
+    if request.method == 'POST':
+        valor = request.form['valor']
+        data = request.form['data']
+        ano = data[6:10]
+        mes = data[3:5]
+        dia = data[0:2]
+        data = f'{ano}-{mes}-{dia}'  # dd/mm/aaaa -> aaaa-mm-dd
+        fonte_desc = request.form['fonte_desc']
+        cursor = con.cursor()
+
+        cursor.execute('UPDATE RECEITAS SET VALOR = ?, DATA = ?, FONTE = ? WHERE ID_RECEITA = ?',
+                       (valor, data, fonte_desc, id_receita))
+        con.commit()
+        cursor.close()
+        con.close()
+        return redirect(url_for('dashboard'))
+    elif request.method == 'GET':
+        return render_template('editar.html')
 
 
 @app.route('/cadastro', methods=['GET', 'POST'])

@@ -279,7 +279,7 @@
     height: 120px;
     background-color: #D9D9D9;
     border-radius: 10px;
-    border: 1.5px solid black;
+    border: 1.5px solid #a8a7a7;
   }
   
   .Valor-Saida{
@@ -296,7 +296,7 @@
     height: 120px;
     background-color: #D9D9D9;
     border-radius: 10px;
-    border: 1.5px solid black;
+    border: 1.5px solid #a8a7a7;
   }
   
   .Valor-Entrada{

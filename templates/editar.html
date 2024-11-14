@@ -16,11 +16,13 @@
 
     <div class="overlay"></div>
 
+    
     <div class="fechar-aba">
         <a href="dashboard.html"><img class="img-fechar-aba" src="../static/img/img-x.png" alt=""></a>
     </div>
 
     <div class="adicionar-movimentacao">
+
 
       <h2>Editar operação</h2>
 
@@ -217,6 +219,32 @@
         </div>
 
     </footer>
+
+    <script>
+        const btn_add = document.getElementById("btn_add")
+        const fechar_aba = document.getElementById("fechar")
+
+
+        function fechar() {
+            const over = document.getElementById("over")
+            const add_movi = document.getElementById("add_movi")
+
+            over.style.display = "none"
+            add_movi.style.display = "none"
+        }
+
+        function adicionar() {
+            const over = document.getElementById("over")
+            const add_movi = document.getElementById("add_movi")
+
+            over.style.display = "block"
+            add_movi.style.display = "block"
+
+        }
+
+        btn_add.addEventListener('click', adicionar)
+        fechar_aba.addEventListener('click', fechar)
+    </script>
 
 </body>
 </html>

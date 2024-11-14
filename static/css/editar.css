@@ -196,7 +196,7 @@ input {
 }
 
 .Logo{
-  width: 90px;
+  width: 80px;
 }
 
 .logo-header {
@@ -212,7 +212,7 @@ input {
 
 .Subtitulo-Header{
   color: white;
-  font-size: 25px;
+  font-size: 20px;
   margin-top: 20px;
   position: relative;
   z-index: 2;

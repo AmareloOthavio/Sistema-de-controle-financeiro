@@ -15,7 +15,7 @@
 
     <div class="overlay" id="over" style="display: none;"></div>
 
-    <div class="adicionar-movimentacao" id="add_movi" style="display: none;">
+    <form class="adicionar-movimentacao" id="add_movi" style="display: none;">
 
         <div class="fechar-aba" id="fechar">
             <img class="img-fechar-aba" src="../static/img/img-x.png" alt="">
@@ -30,10 +30,17 @@
 
             <p>Escolha a Movimentação:</p>
 
-            <button class="botao-movimentacao-entrada" id="entradaBtn">Entrada</button>
-            <button class="botao-movimentacao-saida" id="saidaBtn">Saída</button>
+            <button type="button" class="botao-movimentacao-entrada" id="entradaBtn">Entrada</button>
+            <button type="button" class="botao-movimentacao-saida" id="saidaBtn">Saída</button>
+
+            <input type="hidden" id="tipo_input" name="tipo" value="">
 
           </div>
+        </div>
+
+        <div class="div-add-fonte">
+            <label for="fonte">Fonte/Descrição:</label>
+            <input type="text" id="fonte_desc" placeholder="..." class="input" required>
         </div>
 
         <div class="div-add-data">
@@ -50,7 +57,7 @@
 
       <button class="btn-salvar" type="submit">Salvar</button>
 
-    </div>
+    </form>
 
 
     <header id="Inicio" class="header">
@@ -243,6 +250,44 @@
 
         btn_add.addEventListener('click', adicionar)
         fechar_aba.addEventListener('click', fechar)
+
+
+        
+
+            const btn_entrada = document.getElementById("entradaBtn")
+            const btn_saida = document.getElementById("saidaBtn")
+            const input = document.getElementById("tipo_input")
+    
+            function entrada() {
+                input.value = "entrada"
+                
+                btn_entrada.style.background = "green"
+                btn_entrada.style.color = "white"
+                btn_entrada.style.border = "none"
+
+                btn_saida.style.background = "#193441"
+                btn_saida.style.border = "1.5px solid white"
+                btn_saida.style.color = "#FF0000"
+
+            }
+    
+            function saida() {
+                input.value = "saida"
+
+                btn_saida.style.background = "red"
+                btn_saida.style.color = "white"
+                btn_saida.style.border = "none"
+
+                btn_entrada.style.background = "#193441"
+                btn_entrada.style.color = "#28B326"
+                btn_entrada.style.border = "1.5px solid white"
+
+            }
+    
+            btn_entrada.addEventListener("click", entrada)
+            btn_saida.addEventListener("click", saida)
+            
+        
     </script>
 
 </body>

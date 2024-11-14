@@ -52,7 +52,7 @@
     color: white;
     z-index: 5;
     width: 600px;
-    height: 350px;
+    height: 400px;
     text-align: center;
   }
 
@@ -134,13 +134,18 @@
   .botao-movimentacao-entrada:hover {
     background-color: #28B326;
     color: white;
-    border: none;
+
   }
   
   .botao-movimentacao-saida:hover {
     background-color: #FF0000;
     color: white;
-    border: none;
+  }
+
+  .div-add-fonte {
+    display: flex;
+    align-items: center;
+    gap: 18px;
   }
 
   

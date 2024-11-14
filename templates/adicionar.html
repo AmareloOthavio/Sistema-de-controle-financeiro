@@ -20,38 +20,40 @@
         <a href="dashboard.html"><img class="img-fechar-aba" src="../static/img/img-x.png" alt=""></a>
     </div>
 
-    <div class="adicionar-movimentacao">
+    <form class="adicionar-movimentacao">
 
       <h2>Adicionar operação</h2>
 
-      <div class="div-ajustar-esquerda">
-        <div class="botoes-movimentacao">
+        <div class="div-ajustar-esquerda">
+            <div class="botoes-movimentacao">
 
-          <div class="ajustar-texto-botoes">
+                <div class="ajustar-texto-botoes">
 
-            <p>Escolha a Movimentação:</p>
+                <p>Escolha a Movimentação:</p>
 
-            <button class="botao-movimentacao-entrada" id="entradaBtn">Entrada</button>
-            <button class="botao-movimentacao-saida" id="saidaBtn">Saída</button>
+                <button type="button" class="botao-movimentacao-entrada" id="entradaBtn">Entrada</button>
+                <button type="button" class="botao-movimentacao-saida" id="saidaBtn">Saída</button>
 
-          </div>
+                <input type="hidden" id="tipo_input" name="tipo" value="">
+
+                </div>
+            </div>
+
+            <div class="div-add-data">
+                <label for="data">Adicione a data:</label>
+                <input type="date" id="data" class="input" required>
+            </div>
+
+            <div class="div-add-valor">
+                <label for="valor">Adicione o valor:</label>
+                <input type="number" id="valor" placeholder="R$ 0,00" class="input" required>
+            </div>
         </div>
-
-        <div class="div-add-data">
-          <label for="data">Adicione a data:</label>
-          <input type="date" id="data" class="input" required>
-        </div>
-
-        <div class="div-add-valor">
-          <label for="valor">Adicione o valor:</label>
-          <input type="number" id="valor" placeholder="R$ 0,00" class="input" required>
-        </div>
-      </div>
 
 
       <button class="btn-salvar" type="submit">Salvar</button>
 
-    </div>
+    </form>
 
     <header id="Inicio" class="header">
         
@@ -69,8 +71,6 @@
                 </p>
 
             </div>
-
-
         </div>
 
         <div class="logout">
@@ -217,6 +217,16 @@
         </div>
 
     </footer>
+
+    <script>
+
+        const btn_entrada = document.getElementById("entradaBtn")
+        const btn_saida = document.getElementById("saidaBtn")
+        const input = document.getElementById("tipo_input")
+
+        
+    </script>
+
 
 </body>
 </html>

@@ -131,6 +131,12 @@ body {
   border: none;
 }
 
+.div-add-fonte {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 .div-add-data{
   display: flex;
   align-items: center;

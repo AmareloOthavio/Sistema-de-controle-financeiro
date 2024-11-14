@@ -76,22 +76,73 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     con = conectar_no_banco()
-    cursor1 = con.cursor()
-    cursor2 = con.cursor()
-    cursor3 = con.cursor()
+    if request.method == 'GET':
+        cursor1 = con.cursor()
+        cursor2 = con.cursor()
+        cursor3 = con.cursor()
 
-    email = session['email']
+        email = session['email']
 
-    cursor1.execute('SELECT * FROM USUARIOS WHERE EMAIL = ?', (email,))
-    usuario = cursor1.fetchone()
-    id_usuario = usuario[0]
-    nome_usuario = usuario[1]
+        cursor1.execute('SELECT * FROM USUARIOS WHERE EMAIL = ?', (email,))
+        usuario = cursor1.fetchone()
+        id_usuario = usuario[0]
+        nome_usuario = usuario[1]
+
+        cursor2.execute('SELECT ID_DESPESA, VALOR, DESCRICAO, DATA FROM DESPESAS WHERE ID_USUARIO = ?', (id_usuario,))
+        despesas = cursor2.fetchall()
+
+        cursor1.execute('SELECT ID_RECEITA, VALOR, FONTE, DATA FROM RECEITAS WHERE ID_USUARIO = ?', (id_usuario,))
+        receitas = cursor1.fetchall()
+        cursor1.close()
+        cursor2.close()
+        cursor3.close()
+        print(receitas)
+        print(despesas)
+        return render_template('dashboard.html', nome=nome_usuario, despesas=despesas, receitas=receitas)
 
     con.close()
-    return render_template('dashboard.html', nome=nome_usuario)
+    return render_template('dashboard.html')
+
+
+@app.route('/excluir_receita/<int:id_receita>', methods=['GET'])
+def excluir_receita(id_receita):
+    con = conectar_no_banco()
+    cursor = con.cursor()
+
+    try:
+        cursor.execute('DELETE FROM RECEITAS WHERE ID_RECEITA = ?', (id_receita,))
+        con.commit()
+
+        flash('Receita excluída com sucesso!', 'success')
+    except Exception as e:
+        flash(f'Erro ao excluir a receita: {str(e)}', 'error')
+    finally:
+        cursor.close()
+        con.close()
+
+    return redirect(url_for('dashboard'))
+
+
+@app.route('/excluir_despesa/<int:id_despesa>', methods=['GET'])
+def excluir_despesa(id_despesa):
+    con = conectar_no_banco()
+    cursor = con.cursor()
+
+    try:
+        cursor.execute('DELETE FROM DESPESAS WHERE ID_DESPESA = ?', (id_despesa,))
+        con.commit()
+
+        flash('Despesa excluída com sucesso!', 'success')
+    except Exception as e:
+        flash(f'Erro ao excluir a despesa: {str(e)}', 'error')
+    finally:
+        cursor.close()
+        con.close()
+
+    return redirect(url_for('dashboard'))
 
 
 @app.route('/cadastro', methods=['GET', 'POST'])

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 import fdb
 
 app = Flask(__name__)
@@ -43,27 +43,55 @@ class Receita:
     de conexão com o banco de dados.
 """
 
+
 def conectar_no_banco():
     return fdb.connect(host=host, database=database, user=user, password=password)
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    con = conectar_no_banco()  # Cria uma nova conexão
+    if request.method == 'POST':
+        email = request.form['email1']
+        senha = request.form['senha1']
+
+        con = conectar_no_banco()
+        cursor1 = con.cursor()
+        cursor1.execute('SELECT ID_USUARIO FROM USUARIOS WHERE EMAIL = ? AND SENHA = ?', (email, senha,))
+        usuario = cursor1.fetchone()
+        if usuario:
+            # Guardando dados localmente no usuário
+            session['email'] = email
+            session['senha'] = senha
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Erro, nome de usuário ou senha incorretos','error')
+
+    return render_template('index.html')
+
+
+@app.route('/logout')
+def logout():
+    session.pop('email', None)
+    session.pop('senha', None)
+    return redirect(url_for('index'))
+
+
+@app.route('/dashboard')
+def dashboard():
+    con = conectar_no_banco()
     cursor1 = con.cursor()
     cursor2 = con.cursor()
+    cursor3 = con.cursor()
 
-    cursor1.execute('SELECT VALOR, DESCRICAO, DATA FROM DESPESAS')
-    despesas = cursor1.fetchall()
+    email = session['email']
 
-    cursor2.execute('SELECT VALOR, FONTE, DATA FROM RECEITAS')
-    receitas = cursor2.fetchall()
+    cursor1.execute('SELECT * FROM USUARIOS WHERE EMAIL = ?', (email,))
+    usuario = cursor1.fetchone()
+    id_usuario = usuario[0]
+    nome_usuario = usuario[1]
 
-    cursor1.close()
-    cursor2.close()
-    con.close()  # Fecha a conexão ao fim da requisição
-
-    return render_template('index.html', despesas=despesas, receitas=receitas)
+    con.close()
+    return render_template('dashboard.html', nome=nome_usuario)
 
 
 @app.route('/cadastro', methods=['GET', 'POST'])
@@ -72,6 +100,10 @@ def cadastrar():
         nome = request.form['nome']
         email = request.form['email']
         senha = request.form['senha']
+
+        # Guardando dados localmente no usuário
+        session['email'] = email
+        session['senha'] = senha
 
         con = conectar_no_banco()  # Cria uma nova conexão
         cursor = con.cursor()

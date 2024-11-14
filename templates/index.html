@@ -29,28 +29,27 @@
                 </p>
 
             </div>
-
             <div class="Caixa-Login">
 
                 <p class="title-caixa-login">Acesse a Área de Monitoramento</p>
-
+            <form action="/" method="post">
                 <div class="Labels-Inputs">
                     <div class="Login-Email">
                         <label for="email1">E-mail</label>
-                        <input id="email1" type="email" required>
+                        <input id="email1" name="email1" type="email" required>
                     </div>
 
                     <div class="Login-Senha">
                         <label for="senha1">Senha</label>
-                        <input id="senha1" type="password" required>
+                        <input id="senha1" name="senha1" type="password" required>
                     </div>
                 </div>
 
-                <a href="dashboard.html" class="Btn-Entrar">Entrar</a>
-
+                <button type="submit" class="Btn-Entrar">Entrar</button>
+            </form>
                 <div class="Container-BoxLogin">
                     <p>Não tem uma conta?</p>
-                    <a class="Link-Cadastro" href="cadastro.html">Criar agora</a>
+                    <a class="Link-Cadastro" href="cadastro">Criar agora</a>
                 </div>
             </div>
         </div>

@@ -140,8 +140,9 @@
         </div>
 
         <div class="Valor-Total">
-            {% set total = total_receita if total_receita != None else 0 %}
-            <p>R$ {{ formatar_valor(total - total_despesa) }}</p>
+            {% set total_receita = total_receita if total_receita != None else 0 %}
+            {% set total_despesa = total_despesa if total_despesa != None else 0 %}
+            <p>R$ {{ formatar_valor(total_receita - total_despesa) }}</p>
         </div>
     </div>
 </div>

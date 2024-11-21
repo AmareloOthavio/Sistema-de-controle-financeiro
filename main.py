@@ -151,7 +151,7 @@ def dashboard():
                             (id_usuario, valor, fonte_desc, data))
         con.commit()
         con.close()
-
+        flash('Adicionado com sucesso', 'success')
         return redirect(url_for('dashboard'))
 
     con.close()

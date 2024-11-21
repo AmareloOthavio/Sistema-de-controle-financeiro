@@ -30,10 +30,10 @@
 
             <p>Escolha a Movimentação:</p>
 
-            <button type="button" class="botao-movimentacao-entrada" id="entradaBtn">Entrada</button>
-            <button type="button" class="botao-movimentacao-saida" id="saidaBtn">Saída</button>
-
-            <input type="hidden" id="tipo" name="tipo" value="" required>
+            <select id="tipo" name="tipo" class="selecionar-movimentacao" required>
+                <option value="saida">Saída</option>
+                <option value="entrada">Entrada</option>
+            </select>
 
           </div>
         </div>
@@ -66,7 +66,7 @@
             
             <div class="Textos-Header">
                 <div class="logo-header">
-                    <a href="dashboard.html"><img class="Logo" src="../static/img/Logo_Oficial.png" alt="Logo" /></a>
+                    <a href="/dashboard"><img class="Logo" src="../static/img/Logo_Oficial.png" alt="Logo" /></a>
                 </div>
 
                 <h1 class="Titulo-Header">Bem-Vindo <span style="color: #D1DBBD;">{{ nome }}</span>!</h1>
@@ -101,11 +101,7 @@
 
 {% with messages = get_flashed_messages() %}
   {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
+      <h1 class="mensagem">{{ messages[0] }}</h1>
   {% endif %}
 {% endwith %}
 

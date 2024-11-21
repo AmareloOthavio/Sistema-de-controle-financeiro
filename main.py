@@ -4,7 +4,7 @@ import fdb
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'jqwdbjA1HSDB23hjBWd8723DWH_V5HD47283JHDKJVBWhdj'
 host = 'localhost'
-database = r'C:\Users\Aluno\Desktop\pedro\SistemaFinanceiro.FDB'
+database = r'C:\Users\Aluno\Downloads\Banco - Sistema financeiro\SistemaFinanceiro.FDB'
 user = 'sysdba'
 password = 'sysdba'
 
@@ -111,10 +111,12 @@ def dashboard():
         id_usuario = usuario[0]
         nome_usuario = usuario[1]
 
-        cursor2.execute('SELECT ID_DESPESA, VALOR, DESCRICAO, DATA FROM DESPESAS WHERE ID_USUARIO = ?', (id_usuario,))
+        cursor2.execute('SELECT ID_DESPESA, VALOR, DESCRICAO, DATA FROM DESPESAS WHERE ID_USUARIO = ? ORDER BY DATA DESC',
+                        (id_usuario,))
         despesas = cursor2.fetchall()
 
-        cursor1.execute('SELECT ID_RECEITA, VALOR, FONTE, DATA FROM RECEITAS WHERE ID_USUARIO = ?', (id_usuario,))
+        cursor1.execute('SELECT ID_RECEITA, VALOR, FONTE, DATA FROM RECEITAS WHERE ID_USUARIO = ? ORDER BY DATA DESC',
+                        (id_usuario,))
         receitas = cursor1.fetchall()
         cursor1.close()
         cursor2.close()
@@ -214,11 +216,7 @@ def editar_despesa(id_despesa):
         return redirect(url_for('dashboard'))
     elif request.method == 'GET':
         cursor2 = con.cursor()
-        email = session['email']
-        cursor2.execute('SELECT * FROM USUARIOS WHERE EMAIL = ?', (email,))
-        usuario = cursor2.fetchone()
-        id_usuario = usuario[0]
-        cursor2.execute('SELECT ID_DESPESA, VALOR, DESCRICAO, DATA FROM DESPESAS WHERE ID_USUARIO = ?', (id_usuario,))
+        cursor2.execute('SELECT ID_DESPESA, VALOR, DESCRICAO, DATA FROM DESPESAS WHERE ID_DESPESA = ?', (id_despesa,))
         despesas = cursor2.fetchall()
         cursor2.close()
         print('\n GET DE EDITAR ENVIADO')
@@ -244,10 +242,7 @@ def editar_receita(id_receita):
     elif request.method == 'GET':
         cursor1 = con.cursor()
         email = session['email']
-        cursor1.execute('SELECT * FROM USUARIOS WHERE EMAIL = ?', (email,))
-        usuario = cursor1.fetchone()
-        id_usuario = usuario[0]
-        cursor1.execute('SELECT ID_RECEITA, VALOR, FONTE, DATA FROM RECEITAS WHERE ID_USUARIO = ?', (id_usuario,))
+        cursor1.execute('SELECT ID_RECEITA, VALOR, FONTE, DATA FROM RECEITAS WHERE ID_RECEITA = ?', (id_receita,))
         receitas = cursor1.fetchall()
         cursor1.close()
         print('\n GET DE EDITAR ENVIADO')

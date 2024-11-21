@@ -40,6 +40,11 @@
 
             <button class="Btn-Criar" type="submit">Criar</button>
        </form>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                  <h3 class="mensagem">{{ messages[-1] }}</h3>
+              {% endif %}
+            {% endwith %}
 
           <a class="link-login" href="/">Já possui uma conta?</a>
 

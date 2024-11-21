@@ -45,6 +45,11 @@
                     </div>
                 </div>
 
+                {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                      <h3 class="mensagem">{{ messages[-1] }}</h3>
+                  {% endif %}
+                {% endwith %}
                 <button type="submit" class="Btn-Entrar">Entrar</button>
             </form>
                 <div class="Container-BoxLogin">

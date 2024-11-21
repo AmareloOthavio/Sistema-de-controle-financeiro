@@ -9,31 +9,6 @@ user = 'sysdba'
 password = 'sysdba'
 
 
-class Usuario:
-    def __init__(self, id_usuario, email, senha):
-        self.id_usuario = id_usuario
-        self.email = email
-        self.senha = senha
-
-
-class Despesa:
-    def __init__(self, id_despesa, id_usuario, valor, descricao, data):
-        self.id_despesa = id_despesa
-        self.id_usuario = id_usuario
-        self.valor = valor
-        self.descricao = descricao
-        self.data = data
-
-
-class Receita:
-    def __init__(self, id_receita, id_usuario, valor, fonte, data):
-        self.id_receita = id_receita
-        self.id_usuario = id_usuario
-        self.valor = valor
-        self.fonte = fonte
-        self.data = data
-
-
 """ 
     Função para criar e retornar uma nova conexão com o banco de dados, escolhi
     fazer dessa maneira porque descobri que usando uma simples conexão global
@@ -140,25 +115,24 @@ def dashboard():
 
         cursor3 = con.cursor()
 
-        print(session)
         email = session['email']
         cursor3.execute('SELECT * FROM USUARIOS WHERE EMAIL = ?', (email,))
         usuario = cursor3.fetchone()
         id_usuario = usuario[0]
 
-        print(f"ID do Usuário: {id_usuario}")
-
         if tipo == 'saida':
+            flash('Despesa adicionada com sucesso!', 'success')
             print("Inserindo despesa...")
             cursor3.execute('INSERT INTO DESPESAS (ID_USUARIO, VALOR, DESCRICAO, DATA) VALUES(?, ?, ?, ?)',
                             (id_usuario, valor, fonte_desc, data))
         elif tipo == 'entrada':
+            flash('Receita adicionada com sucesso', 'success')
             print("Inserindo receita...")
             cursor3.execute('INSERT INTO RECEITAS (ID_USUARIO, VALOR,  FONTE, DATA) VALUES(?, ?, ?, ?)',
                             (id_usuario, valor, fonte_desc, data))
         con.commit()
         con.close()
-        flash('Adicionado com sucesso', 'success')
+
         return redirect(url_for('dashboard'))
 
     con.close()
@@ -246,7 +220,6 @@ def editar_receita(id_receita):
         return redirect(url_for('dashboard'))
     elif request.method == 'GET':
         cursor1 = con.cursor()
-        email = session['email']
         cursor1.execute('SELECT ID_RECEITA, VALOR, FONTE, DATA FROM RECEITAS WHERE ID_RECEITA = ?', (id_receita,))
         receitas = cursor1.fetchall()
         cursor1.close()

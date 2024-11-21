@@ -213,8 +213,16 @@ def editar_despesa(id_despesa):
         con.close()
         return redirect(url_for('dashboard'))
     elif request.method == 'GET':
+        cursor2 = con.cursor()
+        email = session['email']
+        cursor2.execute('SELECT * FROM USUARIOS WHERE EMAIL = ?', (email,))
+        usuario = cursor2.fetchone()
+        id_usuario = usuario[0]
+        cursor2.execute('SELECT ID_DESPESA, VALOR, DESCRICAO, DATA FROM DESPESAS WHERE ID_USUARIO = ?', (id_usuario,))
+        despesas = cursor2.fetchall()
+        cursor2.close()
         print('\n GET DE EDITAR ENVIADO')
-        return render_template('editar.html', tipo='despesa', id=id_despesa)
+        return render_template('editar.html', tipo='despesa', id=id_despesa, despesas=despesas)
 
 
 @app.route('/editar_receita/<int:id_receita>', methods=['GET', 'POST'])
@@ -234,8 +242,16 @@ def editar_receita(id_receita):
         con.close()
         return redirect(url_for('dashboard'))
     elif request.method == 'GET':
+        cursor1 = con.cursor()
+        email = session['email']
+        cursor1.execute('SELECT * FROM USUARIOS WHERE EMAIL = ?', (email,))
+        usuario = cursor1.fetchone()
+        id_usuario = usuario[0]
+        cursor1.execute('SELECT ID_RECEITA, VALOR, FONTE, DATA FROM RECEITAS WHERE ID_USUARIO = ?', (id_usuario,))
+        receitas = cursor1.fetchall()
+        cursor1.close()
         print('\n GET DE EDITAR ENVIADO')
-        return render_template('editar.html', tipo='receita', id=id_receita)
+        return render_template('editar.html', tipo='receita', id=id_receita, receitas=receitas)
 
 
 @app.route('/cadastro', methods=['GET', 'POST'])

@@ -26,20 +26,28 @@
 
       <h2>Editar operação</h2>
         <form method="post" action="/editar_{{ tipo }}/{{ id }}">
+            {% if receitas %}
+                {% set fonte = receitas[0][2] %}
+                {% set data = receitas[0][3] %}
+                {% set valor = receitas[0][1] %}
+            {% elif despesas %}
+                {% set fonte = despesas[0][2] %}
+                {% set data = despesas[0][3] %}
+                {% set valor = despesas[0][1] %}
+            {% endif %}
           <div class="div-ajustar-esquerda">
             <div class="div-add-fonte">
                 <label for="data">Fonte:</label>
-                <input name="fonte_desc" type="text" id="fonte" class="input" required placeholder="Descrição">
+                <input name="fonte_desc" type="text" id="fonte" class="input" required placeholder="Descrição" value="{{ fonte }}">
             </div>
-
             <div class="div-add-data">
               <label for="data">Data:</label>
-              <input name="data" type="date" id="data" class="input" required>
+              <input name="data" type="date" id="data" class="input" required value="{{ data }}">
             </div>
 
             <div class="div-add-valor">
               <label for="valor">Valor:</label>
-              <input name="valor" type="number" id="valor" placeholder="R$ 0,00" class="input" required>
+              <input name="valor" type="number" id="valor" placeholder="R$ 0,00" class="input" required value="{{ valor }}">
             </div>
           </div>
 

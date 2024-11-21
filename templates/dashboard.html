@@ -40,7 +40,7 @@
 
         <div class="div-add-fonte">
             <label for="fonte_desc">Fonte/Descrição:</label>
-            <input type="text" id="fonte_desc" name="fonte_desc" placeholder="..." class="input" required>
+            <input type="text" id="fonte_desc" name="fonte_desc" placeholder="..." class="input" required maxlength="10">
         </div>
 
         <div class="div-add-data">
@@ -151,7 +151,7 @@
                 <img class="img-seta" src="../static/img/seta-entrada.png" alt="">
 
                 <div class="div-texto-entrada">
-                    <p class="texto-caixa-Entrada">{{ receita[2] }}</p>
+                    <p class="texto-caixa-Entrada" style="width: 104px; text-align: center;">{{ receita[2] }}</p>
                 </div>
                 {% set data_str = receita[3] | string %}
                 {% set ano = data_str[0:4] %}
@@ -185,7 +185,7 @@
                 <img class="img-seta" src="../static/img/seta-saida.png" alt="">
                 
                 <div class="div-texto-saida">
-                    <p class="texto-caixa-Saida">{{ despesa[2] }}</p>
+                    <p class="texto-caixa-Saida" style="width: 74px; text-align: center;">{{ despesa[2] }}</p>
                 </div>
 
                 {% set data_str2 = despesa[3] | string %}

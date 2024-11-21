@@ -25,10 +25,9 @@ def conectar_no_banco():
 
 def calcular_receita():
     con = conectar_no_banco()
-    email = session['email']
     cursor = con.cursor()
-    cursor.execute('SELECT SUM(VALOR) FROM RECEITAS r WHERE r.ID_USUARIO = (SELECT ID_USUARIO FROM USUARIOS u WHERE u.EMAIL = ?)',
-                   (email,))
+    cursor.execute('SELECT SUM(VALOR) FROM RECEITAS r WHERE r.ID_USUARIO = ?',
+                   (session['id_usuario'],))
     total = cursor.fetchall()
     cursor.close()
     return total[0][0] if total else 0
@@ -36,10 +35,10 @@ def calcular_receita():
 
 def calcular_despesa():
     con = conectar_no_banco()
-    email = session['email']
     cursor = con.cursor()
-    cursor.execute('SELECT SUM(VALOR) FROM DESPESAS d WHERE d.ID_USUARIO = (SELECT ID_USUARIO FROM USUARIOS u WHERE u.EMAIL = ?)',
-                   (email,))
+    id_usuario = session['id_usuario']
+    cursor.execute('SELECT SUM(VALOR) FROM DESPESAS d WHERE d.ID_USUARIO = ?',
+                   (id_usuario,))
     total = cursor.fetchall()
     cursor.close()
     return total[0][0] if total else 0
@@ -59,6 +58,7 @@ def index():
             # Guardando dados localmente no usuário
             session['email'] = email
             session['senha'] = senha
+            session['id_usuario'] = usuario[0]
             return redirect(url_for('dashboard'))
         else:
             flash('Erro, nome de usuário ou senha incorretos', 'error')
@@ -76,19 +76,19 @@ def logout():
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     con = conectar_no_banco()
-
+    id_usuario = session['id_usuario']
     if request.method == 'GET':
-        if 'senha' not in session:
+        if 'id_usuario' not in session:
             flash('Erro, você precisa estar em uma conta', 'error')
             return redirect(url_for('index'))
         cursor1 = con.cursor()
         cursor2 = con.cursor()
 
-        email = session['email']
-        cursor1.execute('SELECT * FROM USUARIOS WHERE EMAIL = ?', (email,))
+        id_usuario = session['id_usuario']
+        cursor1.execute('SELECT * FROM USUARIOS WHERE ID_USUARIO = ?', (id_usuario,))
         usuario = cursor1.fetchone()
-        id_usuario = usuario[0]
         nome_usuario = usuario[1]
+        print(usuario)
 
         cursor2.execute('SELECT ID_DESPESA, VALOR, DESCRICAO, DATA FROM DESPESAS WHERE ID_USUARIO = ? ORDER BY DATA DESC',
                         (id_usuario,))
@@ -116,7 +116,7 @@ def dashboard():
         cursor3 = con.cursor()
 
         email = session['email']
-        cursor3.execute('SELECT * FROM USUARIOS WHERE EMAIL = ?', (email,))
+        cursor3.execute('SELECT * FROM USUARIOS WHERE ID_USUARIO = ?', (session['id_usuario'],))
         usuario = cursor3.fetchone()
         id_usuario = usuario[0]
 
@@ -251,6 +251,9 @@ def cadastrar():
             # Inserir o novo usuário
             cursor.execute("INSERT INTO USUARIOS (NOME, EMAIL, SENHA) VALUES (?, ?, ?)", (nome, email, senha))
             con.commit()
+            cursor.execute('SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = ?', (email,))
+            id_usuario = cursor.fetchone()
+            session['id_usuario'] = id_usuario
 
         except Exception as e:
             # Em caso de erro no banco de dados:

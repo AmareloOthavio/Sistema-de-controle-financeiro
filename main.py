@@ -4,7 +4,7 @@ import fdb
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'jqwdbjA1HSDB23hjBWd8723DWH_V5HD47283JHDKJVBWhdj'
 host = 'localhost'
-database = r'C:\Users\Aluno\Desktop\pedro\SistemaFinanceiro.FDB'
+database = r' C:\Users\Aluno\Downloads\Banco - Sistema financeiro\SistemaFinanceiro.FDB'
 user = 'sysdba'
 password = 'sysdba'
 
@@ -78,7 +78,7 @@ def index():
 
         con = conectar_no_banco()
         cursor1 = con.cursor()
-        cursor1.execute('SELECT ID_USUARIO FROM USUARIOS WHERE EMAIL = ? AND SENHA = ?', (email, senha))
+        cursor1.execute('SELECT ID_USUARIO FROM USUARIOS WHERE EMAIL = ? AND SENHA = ?', (email, senha,))
         usuario = cursor1.fetchone()
         if usuario:
             # Guardando dados localmente no usuário
@@ -102,11 +102,10 @@ def logout():
 def dashboard():
     con = conectar_no_banco()
 
-    if 'id_usuario' not in session:
-        flash('voce precisa estar logado')
-        return redirect(url_for('index'))
-
     if request.method == 'GET':
+        if 'senha' not in session:
+            flash('Erro, você precisa estar em uma conta', 'error')
+            return redirect(url_for('index'))
         cursor1 = con.cursor()
         cursor2 = con.cursor()
 
@@ -141,10 +140,11 @@ def dashboard():
 
         cursor3 = con.cursor()
 
-        # email = session['email']
-        # cursor3.execute('SELECT * FROM USUARIOS WHERE EMAIL = ?', (email,))
-        # usuario = cursor3.fetchone()
-        id_usuario = session['id_usuario']
+        print(session)
+        email = session['email']
+        cursor3.execute('SELECT * FROM USUARIOS WHERE EMAIL = ?', (email,))
+        usuario = cursor3.fetchone()
+        id_usuario = usuario[0]
 
         print(f"ID do Usuário: {id_usuario}")
 

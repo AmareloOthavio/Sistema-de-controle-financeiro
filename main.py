@@ -48,6 +48,28 @@ def conectar_no_banco():
     return fdb.connect(host=host, database=database, user=user, password=password)
 
 
+def calcular_receita():
+    con = conectar_no_banco()
+    email = session['email']
+    cursor = con.cursor()
+    cursor.execute('SELECT SUM(VALOR) FROM RECEITAS r WHERE r.ID_USUARIO = (SELECT ID_USUARIO FROM USUARIOS u WHERE u.EMAIL = ?)',
+                   (email,))
+    total = cursor.fetchall()
+    cursor.close()
+    return total[0][0] if total else 0
+
+
+def calcular_despesa():
+    con = conectar_no_banco()
+    email = session['email']
+    cursor = con.cursor()
+    cursor.execute('SELECT SUM(VALOR) FROM DESPESAS d WHERE d.ID_USUARIO = (SELECT ID_USUARIO FROM USUARIOS u WHERE u.EMAIL = ?)',
+                   (email,))
+    total = cursor.fetchall()
+    cursor.close()
+    return total[0][0] if total else 0
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -97,7 +119,10 @@ def dashboard():
         cursor1.close()
         cursor2.close()
         con.close()
-        return render_template('dashboard.html', nome=nome_usuario, despesas=despesas, receitas=receitas)
+        total_receita = calcular_receita()
+        total_despesa = calcular_despesa()
+        return render_template('dashboard.html', nome=nome_usuario, despesas=despesas,
+                               receitas=receitas, total_receita=total_receita, total_despesa=total_despesa)
     elif request.method == 'POST':
         valor = request.form['valor']
         data = request.form['data']
@@ -190,7 +215,6 @@ def editar_despesa(id_despesa):
     elif request.method == 'GET':
         print('\n GET DE EDITAR ENVIADO')
         return render_template('editar.html', tipo='despesa', id=id_despesa)
-
 
 
 @app.route('/editar_receita/<int:id_receita>', methods=['GET', 'POST'])

@@ -33,7 +33,7 @@
             <button type="button" class="botao-movimentacao-entrada" id="entradaBtn">Entrada</button>
             <button type="button" class="botao-movimentacao-saida" id="saidaBtn">Saída</button>
 
-            <input type="hidden" id="tipo" name="tipo" value="entrada">
+            <input type="hidden" id="tipo" name="tipo" value="" required>
 
           </div>
         </div>
@@ -88,51 +88,63 @@
         </div>
 
     </header>
+    {% macro formatar_valor(valor) %}
+    {% if valor is none %}
+        {% set valor = 0 %}  {# Define valor como 0 se for None #}
+    {% endif %}
+    {% set valor_formatado = valor | round(2) | string %}  {# Converte o valor para string com 2 casas decimais #}
+    {% if '.' in valor_formatado %}
+        {% set valor_formatado = valor_formatado | replace('.', ',') %}  {# Substitui ponto por vírgula #}
+    {% endif %}
+    {{ valor_formatado }}
+    {% endmacro %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 
     <div class="ajuste-responsivo">
         <div class="blocos">
 
-            <div class="blocoEntrada">
-                <div class="displayflex">
-                    <p class="text-blocoEntrada">Entrada</p>
-    
-                    <img class="img-blocos" src="../static/img/seta-entrada.png" alt="">
-                </div>
-    
-                <div class="Valor-Entrada">
-                    <p>R$ 2.600,00</p>   
-                </div>
-    
+        <div class="blocoEntrada">
+            <div class="displayflex">
+                <p class="text-blocoEntrada">Entrada</p>
+                <img class="img-blocos" src="../static/img/seta-entrada.png" alt="">
             </div>
-            <div class="blocoSaida">
-                <div class="displayflex">
-                    <p class="text-blocoSaida">Saída</p>
-    
-                    <img class="img-blocos" src="../static/img/seta-saida.png" alt="">
-                </div>
-    
-                <div class="Valor-Saida">
-                    <p>R$ 2.600,00</p>   
-                </div>
-    
+
+            <div class="Valor-Entrada">
+                <p>R$ {{ formatar_valor(total_receita) }}</p>
             </div>
-            <div class="blocoTotal">
-                <div class="displayflex">
-                    <p class="text-blocoTotal">Total</p>
-    
-                    <img class="img-blocos" src="../static/img/icon-total.png" alt="">
-                </div>
-    
-                <div class="Valor-Total">
-                    <p>R$ 0,00</p>   
-                </div>
-    
-            </div>
-    
         </div>
-    
+
+        <div class="blocoSaida">
+            <div class="displayflex">
+                <p class="text-blocoSaida">Saída</p>
+                <img class="img-blocos" src="../static/img/seta-saida.png" alt="">
+            </div>
+
+            <div class="Valor-Saida">
+                <p>R$ {{ formatar_valor(total_despesa) }}</p>
+            </div>
     </div>
 
+    <div class="blocoTotal">
+        <div class="displayflex">
+            <p class="text-blocoTotal">Total</p>
+        </div>
+
+        <div class="Valor-Total">
+            {% set total = total_receita if total_receita != None else 0 %}
+            <p>R$ {{ formatar_valor(total - total_despesa) }}</p>
+        </div>
+    </div>
+</div>
 
     <div class="displayflex2">
         <div class="caixa-historico">
@@ -155,13 +167,8 @@
                 </div>
 
                 <div class="div-valor-entrada">
-                    {% set valor = receita[1] %}
-                    {% set valor_formatado = valor | round(2) | string %}  {# Converte o valor para string com 2 casas decimais #}
-                    {% if '.' in valor_formatado %}
-                        {% set valor_formatado = valor_formatado | replace('.', ',') %}  {# Substitui ponto por vírgula #}
-                    {% endif %}
 
-                    <p class="texto-caixa-valores">R$ {{ valor_formatado }}</p>
+                    <p class="texto-caixa-valores">R$ {{ formatar_valor(receita[1]) }}</p>
                 </div>
 
                 <div class="div-imgs-caixa-valores">

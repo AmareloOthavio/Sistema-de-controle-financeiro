@@ -20,6 +20,7 @@
         <div class="caixa-cadastro">
 
             <p class="Titulo-caixa-cadastro">Crie sua conta</p>
+
        <form action="/cadastro" method="post">
             <div class="Label-input">
                 <div class="Cadastro-Nome">
@@ -39,6 +40,13 @@
             </div>
 
             <button class="Btn-Criar" type="submit">Criar</button>
+           
+           {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                  <h1 class="mensagem">{{ messages[-1] }}</h1>
+              {% endif %}
+            {% endwith %}
+
        </form>
             {% with messages = get_flashed_messages() %}
               {% if messages %}

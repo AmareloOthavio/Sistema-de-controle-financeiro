@@ -5,6 +5,12 @@
     font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
   }
+
+  .mensagem {
+    font-size: 16px;
+    text-align: center;
+    margin-top: 50px;
+  }
   
   html {
     scroll-behavior: smooth;
@@ -87,59 +93,13 @@
     margin-bottom: 25px;
   }
   
-  .botoes-movimentacao {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-  }
-  
   .botoes-movimentacao p {
     font-size: 20px;
     text-align: left;
   }
-  
-  .botao-movimentacao {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    color: #28B326;
-    transition: background-color 0.3s;
-  }
-  
-  .botao-movimentacao-entrada {
-    background-color: #193441;
-    border: 1.5px solid white;
-    color: #28B326;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    padding: 10px 20px;
-    transition: all 0.5s ease;
-  }
-  
-  .botao-movimentacao-saida {
-    background-color: #193441;
-    border: 1.5px solid white;
-    color: #FF0000;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    padding: 10px 25px;
-    transition: all 0.5s ease;
-  }
-  
-  .botao-movimentacao-entrada:hover {
-    background-color: #28B326;
-    color: white;
 
-  }
-  
-  .botao-movimentacao-saida:hover {
-    background-color: #FF0000;
-    color: white;
+  .selecionar-movimentacao {
+    
   }
 
   .div-add-fonte {
@@ -266,7 +226,7 @@
     display: flex;
     justify-content: center;
     gap: 40px;
-    margin-top: 200px;
+    margin-top: 55px;
     margin-bottom: -70px;
     position: relative;
   }
@@ -357,7 +317,7 @@
   
   .caixa-historico{
     width: 93%;
-    height: 70vh;
+    height: 100vh;
     background-color: #193441;
     display: flex;
     flex-direction: column;

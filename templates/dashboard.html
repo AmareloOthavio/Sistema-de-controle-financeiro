@@ -30,17 +30,17 @@
 
             <p>Escolha a Movimentação:</p>
 
-            <button type="button" class="botao-movimentacao-entrada" id="entradaBtn">Entrada</button>
-            <button type="button" class="botao-movimentacao-saida" id="saidaBtn">Saída</button>
-
-            <input type="hidden" id="tipo" name="tipo" value="entrada">
+            <select id="tipo" name="tipo" class="selecionar-movimentacao" required>
+                <option value="saida">Saída</option>
+                <option value="entrada">Entrada</option>
+            </select>
 
           </div>
         </div>
 
         <div class="div-add-fonte">
             <label for="fonte_desc">Fonte/Descrição:</label>
-            <input type="text" id="fonte_desc" name="fonte_desc" placeholder="..." class="input" required>
+            <input type="text" id="fonte_desc" name="fonte_desc" placeholder="..." class="input" required maxlength="10">
         </div>
 
         <div class="div-add-data">
@@ -50,7 +50,7 @@
 
         <div class="div-add-valor">
           <label for="valor">Adicione o valor:</label>
-          <input type="number" id="valor" name="valor" placeholder="R$ 0,00" class="input" required>
+          <input type="number" id="valor" name="valor" placeholder="R$ 0,00" class="input" step="0.01" required>
         </div>
       </div>
 
@@ -66,7 +66,7 @@
             
             <div class="Textos-Header">
                 <div class="logo-header">
-                    <a href="dashboard.html"><img class="Logo" src="../static/img/Logo_Oficial.png" alt="Logo" /></a>
+                    <a href="/dashboard"><img class="Logo" src="../static/img/Logo_Oficial.png" alt="Logo" /></a>
                 </div>
 
                 <h1 class="Titulo-Header">Bem-Vindo <span style="color: #D1DBBD;">{{ nome }}</span>!</h1>
@@ -84,55 +84,64 @@
         </div>
 
         <div class="logout">
-           <a href="/"><img class="img-logout" src="../static/img/logout.png" alt=""></a>
+           <a href="/logout"><img class="img-logout" src="../static/img/logout.png" alt=""></a>
         </div>
 
     </header>
+    {% macro formatar_valor(valor) %}
+    {% if valor is none %}
+        {% set valor = 0 %}  {# Define valor como 0 se for None #}
+    {% endif %}
+    {% set valor_formatado = valor | round(2) | string %}  {# Converte o valor para string com 2 casas decimais #}
+    {% if '.' in valor_formatado %}
+        {% set valor_formatado = valor_formatado | replace('.', ',') %}  {# Substitui ponto por vírgula #}
+    {% endif %}
+    {{ valor_formatado }}
+    {% endmacro %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+      <h1 class="mensagem">{{ messages[0] }}</h1>
+  {% endif %}
+{% endwith %}
 
     <div class="ajuste-responsivo">
         <div class="blocos">
 
-            <div class="blocoEntrada">
-                <div class="displayflex">
-                    <p class="text-blocoEntrada">Entrada</p>
-    
-                    <img class="img-blocos" src="../static/img/seta-entrada.png" alt="">
-                </div>
-    
-                <div class="Valor-Entrada">
-                    <p>R$ 2.600,00</p>   
-                </div>
-    
+        <div class="blocoEntrada">
+            <div class="displayflex">
+                <p class="text-blocoEntrada">Entrada</p>
+                <img class="img-blocos" src="../static/img/seta-entrada.png" alt="">
             </div>
-            <div class="blocoSaida">
-                <div class="displayflex">
-                    <p class="text-blocoSaida">Saída</p>
-    
-                    <img class="img-blocos" src="../static/img/seta-saida.png" alt="">
-                </div>
-    
-                <div class="Valor-Saida">
-                    <p>R$ 2.600,00</p>   
-                </div>
-    
+
+            <div class="Valor-Entrada">
+                <p>R$ {{ formatar_valor(total_receita) }}</p>
             </div>
-            <div class="blocoTotal">
-                <div class="displayflex">
-                    <p class="text-blocoTotal">Total</p>
-    
-                    <img class="img-blocos" src="../static/img/icon-total.png" alt="">
-                </div>
-    
-                <div class="Valor-Total">
-                    <p>R$ 0,00</p>   
-                </div>
-    
-            </div>
-    
         </div>
-    
+
+        <div class="blocoSaida">
+            <div class="displayflex">
+                <p class="text-blocoSaida">Saída</p>
+                <img class="img-blocos" src="../static/img/seta-saida.png" alt="">
+            </div>
+
+            <div class="Valor-Saida">
+                <p>R$ {{ formatar_valor(total_despesa) }}</p>
+            </div>
     </div>
 
+    <div class="blocoTotal">
+        <div class="displayflex">
+            <p class="text-blocoTotal">Total</p>
+        </div>
+
+        <div class="Valor-Total">
+            {% set total_receita = total_receita if total_receita != None else 0 %}
+            {% set total_despesa = total_despesa if total_despesa != None else 0 %}
+            <p>R$ {{ formatar_valor(total_receita - total_despesa) }}</p>
+        </div>
+    </div>
+</div>
 
     <div class="displayflex2">
         <div class="caixa-historico">
@@ -142,7 +151,7 @@
                 <img class="img-seta" src="../static/img/seta-entrada.png" alt="">
 
                 <div class="div-texto-entrada">
-                    <p class="texto-caixa-Entrada">{{ receita[2] }}</p>
+                    <p class="texto-caixa-Entrada" style="width: 104px; text-align: center;">{{ receita[2] }}</p>
                 </div>
                 {% set data_str = receita[3] | string %}
                 {% set ano = data_str[0:4] %}
@@ -155,13 +164,8 @@
                 </div>
 
                 <div class="div-valor-entrada">
-                    {% set valor = receita[1] %}
-                    {% set valor_formatado = valor | round(2) | string %}  {# Converte o valor para string com 2 casas decimais #}
-                    {% if '.' in valor_formatado %}
-                        {% set valor_formatado = valor_formatado | replace('.', ',') %}  {# Substitui ponto por vírgula #}
-                    {% endif %}
 
-                    <p class="texto-caixa-valores">R$ {{ valor_formatado }}</p>
+                    <p class="texto-caixa-valores">R$ {{ formatar_valor(receita[1]) }}</p>
                 </div>
 
                 <div class="div-imgs-caixa-valores">
@@ -181,7 +185,7 @@
                 <img class="img-seta" src="../static/img/seta-saida.png" alt="">
                 
                 <div class="div-texto-saida">
-                    <p class="texto-caixa-Saida">{{ despesa[2] }}</p>
+                    <p class="texto-caixa-Saida" style="width: 74px; text-align: center;">{{ despesa[2] }}</p>
                 </div>
 
                 {% set data_str2 = despesa[3] | string %}
@@ -264,8 +268,18 @@
     <script>
         const btn_add = document.getElementById("btn_add")
         const fechar_aba = document.getElementById("fechar")
+        function rolarParaTabela() {
+            setTimeout(function() {
+                if (sessionStorage.getItem('visited')) {
+                    let scrollY = window.scrollY
+                    window.scrollTo(0, 600)
+                } else {
+                    sessionStorage.setItem('visited', 'true');
+                }
+            }, 500)
+        }
 
-
+        window.addEventListener('load', rolarParaTabela);
         function fechar() {
             const over = document.getElementById("over")
             const add_movi = document.getElementById("add_movi")

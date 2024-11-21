@@ -4,7 +4,7 @@ import fdb
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'jqwdbjA1HSDB23hjBWd8723DWH_V5HD47283JHDKJVBWhdj'
 host = 'localhost'
-database = r'C:\Users\Aluno\Downloads\Banco - Sistema financeiro\SistemaFinanceiro.FDB'
+database = r' C:\Users\Aluno\Downloads\Banco - Sistema financeiro\SistemaFinanceiro.FDB'
 user = 'sysdba'
 password = 'sysdba'
 
@@ -48,6 +48,28 @@ def conectar_no_banco():
     return fdb.connect(host=host, database=database, user=user, password=password)
 
 
+def calcular_receita():
+    con = conectar_no_banco()
+    email = session['email']
+    cursor = con.cursor()
+    cursor.execute('SELECT SUM(VALOR) FROM RECEITAS r WHERE r.ID_USUARIO = (SELECT ID_USUARIO FROM USUARIOS u WHERE u.EMAIL = ?)',
+                   (email,))
+    total = cursor.fetchall()
+    cursor.close()
+    return total[0][0] if total else 0
+
+
+def calcular_despesa():
+    con = conectar_no_banco()
+    email = session['email']
+    cursor = con.cursor()
+    cursor.execute('SELECT SUM(VALOR) FROM DESPESAS d WHERE d.ID_USUARIO = (SELECT ID_USUARIO FROM USUARIOS u WHERE u.EMAIL = ?)',
+                   (email,))
+    total = cursor.fetchall()
+    cursor.close()
+    return total[0][0] if total else 0
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -79,7 +101,11 @@ def logout():
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     con = conectar_no_banco()
+
     if request.method == 'GET':
+        if 'senha' not in session:
+            flash('Erro, você precisa estar em uma conta', 'error')
+            return redirect(url_for('index'))
         cursor1 = con.cursor()
         cursor2 = con.cursor()
 
@@ -89,15 +115,20 @@ def dashboard():
         id_usuario = usuario[0]
         nome_usuario = usuario[1]
 
-        cursor2.execute('SELECT ID_DESPESA, VALOR, DESCRICAO, DATA FROM DESPESAS WHERE ID_USUARIO = ?', (id_usuario,))
+        cursor2.execute('SELECT ID_DESPESA, VALOR, DESCRICAO, DATA FROM DESPESAS WHERE ID_USUARIO = ? ORDER BY DATA DESC',
+                        (id_usuario,))
         despesas = cursor2.fetchall()
 
-        cursor1.execute('SELECT ID_RECEITA, VALOR, FONTE, DATA FROM RECEITAS WHERE ID_USUARIO = ?', (id_usuario,))
+        cursor1.execute('SELECT ID_RECEITA, VALOR, FONTE, DATA FROM RECEITAS WHERE ID_USUARIO = ? ORDER BY DATA DESC',
+                        (id_usuario,))
         receitas = cursor1.fetchall()
         cursor1.close()
         cursor2.close()
         con.close()
-        return render_template('dashboard.html', nome=nome_usuario, despesas=despesas, receitas=receitas)
+        total_receita = calcular_receita()
+        total_despesa = calcular_despesa()
+        return render_template('dashboard.html', nome=nome_usuario, despesas=despesas,
+                               receitas=receitas, total_receita=total_receita, total_despesa=total_despesa)
     elif request.method == 'POST':
         valor = request.form['valor']
         data = request.form['data']
@@ -109,6 +140,7 @@ def dashboard():
 
         cursor3 = con.cursor()
 
+        print(session)
         email = session['email']
         cursor3.execute('SELECT * FROM USUARIOS WHERE EMAIL = ?', (email,))
         usuario = cursor3.fetchone()
@@ -126,7 +158,7 @@ def dashboard():
                             (id_usuario, valor, fonte_desc, data))
         con.commit()
         con.close()
-
+        flash('Adicionado com sucesso', 'success')
         return redirect(url_for('dashboard'))
 
     con.close()
@@ -188,9 +220,12 @@ def editar_despesa(id_despesa):
         con.close()
         return redirect(url_for('dashboard'))
     elif request.method == 'GET':
+        cursor2 = con.cursor()
+        cursor2.execute('SELECT ID_DESPESA, VALOR, DESCRICAO, DATA FROM DESPESAS WHERE ID_DESPESA = ?', (id_despesa,))
+        despesas = cursor2.fetchall()
+        cursor2.close()
         print('\n GET DE EDITAR ENVIADO')
-        return render_template('editar.html', tipo='despesa', id=id_despesa)
-
+        return render_template('editar.html', tipo='despesa', id=id_despesa, despesas=despesas)
 
 
 @app.route('/editar_receita/<int:id_receita>', methods=['GET', 'POST'])
@@ -210,8 +245,13 @@ def editar_receita(id_receita):
         con.close()
         return redirect(url_for('dashboard'))
     elif request.method == 'GET':
+        cursor1 = con.cursor()
+        email = session['email']
+        cursor1.execute('SELECT ID_RECEITA, VALOR, FONTE, DATA FROM RECEITAS WHERE ID_RECEITA = ?', (id_receita,))
+        receitas = cursor1.fetchall()
+        cursor1.close()
         print('\n GET DE EDITAR ENVIADO')
-        return render_template('editar.html', tipo='receita', id=id_receita)
+        return render_template('editar.html', tipo='receita', id=id_receita, receitas=receitas)
 
 
 @app.route('/cadastro', methods=['GET', 'POST'])

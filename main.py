@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 import fdb
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'jqwdbjAHSDBhjBWd8723DWHV5rDWHD4783JHDKJVBWhdj'
+app.config['SECRET_KEY'] = 'jqwdbjA1HSDB23hjBWd8723DWH_V5HD47283JHDKJVBWhdj'
 host = 'localhost'
 database = r'C:\Users\Aluno\Downloads\Banco - Sistema financeiro\SistemaFinanceiro.FDB'
 user = 'sysdba'
@@ -64,7 +64,7 @@ def index():
             session['senha'] = senha
             return redirect(url_for('dashboard'))
         else:
-            flash('Erro, nome de usuário ou senha incorretos','error')
+            flash('Erro, nome de usuário ou senha incorretos', 'error')
 
     return render_template('index.html')
 
@@ -78,7 +78,6 @@ def logout():
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    print('DASHBOARD')
     con = conectar_no_banco()
     if request.method == 'GET':
         cursor1 = con.cursor()
@@ -105,7 +104,6 @@ def dashboard():
         tipo = request.form['tipo']
         fonte_desc = request.form['fonte_desc']
 
-        # Verifique se a execução chegou até aqui com um print
         print('\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n')
         print(f"POST RECEBIDO: Valor = {valor}, Data = {data}, Tipo = {tipo}, Fonte/Descrição = {fonte_desc}")
 
@@ -116,7 +114,7 @@ def dashboard():
         usuario = cursor3.fetchone()
         id_usuario = usuario[0]
 
-        print(f"ID do Usuário: {id_usuario}")  # Verifique o ID do usuário
+        print(f"ID do Usuário: {id_usuario}")
 
         if tipo == 'saida':
             print("Inserindo despesa...")
@@ -179,21 +177,20 @@ def editar_despesa(id_despesa):
     if request.method == 'POST':
         valor = request.form['valor']
         data = request.form['data']
-        ano = data[6:10]
-        mes = data[3:5]
-        dia = data[0:2]
-        data = f'{ano}-{mes}-{dia}'  # dd/mm/aaaa -> aaaa-mm-dd
         fonte_desc = request.form['fonte_desc']
-        cursor = con.cursor()
+        cursor1 = con.cursor()
 
-        cursor.execute('UPDATE DESPESAS SET VALOR = ?, DATA = ?, DESCRICAO = ? WHERE ID_DESPESA = ?',
-                       (valor, data, fonte_desc, id_despesa))
+        print('\n ATUALIZANDO DE EDITAR DESPESA')
+        cursor1.execute('UPDATE DESPESAS SET VALOR = ?, DATA = ?, DESCRICAO = ? WHERE ID_DESPESA = ?',
+                        (valor, data, fonte_desc, id_despesa))
         con.commit()
-        cursor.close()
+        cursor1.close()
         con.close()
         return redirect(url_for('dashboard'))
     elif request.method == 'GET':
-        return render_template('editar.html')
+        print('\n GET DE EDITAR ENVIADO')
+        return render_template('editar.html', tipo='despesa', id=id_despesa)
+
 
 
 @app.route('/editar_receita/<int:id_receita>', methods=['GET', 'POST'])
@@ -202,21 +199,19 @@ def editar_receita(id_receita):
     if request.method == 'POST':
         valor = request.form['valor']
         data = request.form['data']
-        ano = data[6:10]
-        mes = data[3:5]
-        dia = data[0:2]
-        data = f'{ano}-{mes}-{dia}'  # dd/mm/aaaa -> aaaa-mm-dd
         fonte_desc = request.form['fonte_desc']
-        cursor = con.cursor()
+        cursor1 = con.cursor()
 
-        cursor.execute('UPDATE RECEITAS SET VALOR = ?, DATA = ?, FONTE = ? WHERE ID_RECEITA = ?',
-                       (valor, data, fonte_desc, id_receita))
+        print('\n ATUALIZANDO DE EDITAR')
+        cursor1.execute('UPDATE RECEITAS SET VALOR = ?, DATA = ?, FONTE = ? WHERE ID_RECEITA = ?',
+                        (valor, data, fonte_desc, id_receita))
         con.commit()
-        cursor.close()
+        cursor1.close()
         con.close()
         return redirect(url_for('dashboard'))
     elif request.method == 'GET':
-        return render_template('editar.html')
+        print('\n GET DE EDITAR ENVIADO')
+        return render_template('editar.html', tipo='receita', id=id_receita)
 
 
 @app.route('/cadastro', methods=['GET', 'POST'])

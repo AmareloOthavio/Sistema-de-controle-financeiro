@@ -140,13 +140,24 @@
                 <div class="div-texto-entrada">
                     <p class="texto-caixa-Entrada">{{ receita[2] }}</p>
                 </div>
+                {% set data_str = receita[3] | string %}
+                {% set ano = data_str[0:4] %}
+                {% set mes = data_str[5:7] %}
+                {% set dia = data_str[8:10] %}
+                {% set data = dia ~ '-' ~ mes ~ '-' ~ ano %}  {# Formato dd-mm-aaaa #}
 
                 <div class="div-data-entrada">
-                    <p class="texto-caixa-valores">{{ receita[3] }}</p>
+                    <p class="texto-caixa-valores">{{ data }}</p>
                 </div>
 
                 <div class="div-valor-entrada">
-                    <p class="texto-caixa-valores">R$ {{ receita[1] }}</p>
+                    {% set valor = receita[1] %}
+                    {% set valor_formatado = valor | round(2) | string %}  {# Converte o valor para string com 2 casas decimais #}
+                    {% if '.' in valor_formatado %}
+                        {% set valor_formatado = valor_formatado | replace('.', ',') %}  {# Substitui ponto por vírgula #}
+                    {% endif %}
+
+                    <p class="texto-caixa-valores">R$ {{ valor_formatado }}</p>
                 </div>
 
                 <div class="div-imgs-caixa-valores">
@@ -154,11 +165,12 @@
 
                     <a href="/excluir_receita/{{ receita[0] }}"><img class="img-caixa-valores" src="../static/img/img-deletar.png" alt=""></a>
                 </div>
-                
-            </div>
-            {% endfor %}
 
-            {% for despesa in despesas %}
+            </div>
+        {% endfor %}
+
+        {% for despesa in despesas %}
+
             <div class="caixa-valores">
 
 
@@ -168,12 +180,23 @@
                     <p class="texto-caixa-Saida">{{ despesa[2] }}</p>
                 </div>
 
+                {% set data_str2 = despesa[3] | string %}
+                {% set ano = data_str2[0:4] %}
+                {% set mes = data_str2[5:7] %}
+                {% set dia = data_str2[8:10] %}
+                {% set data = dia ~ '-' ~ mes ~ '-' ~ ano %}  {# Formato dd-mm-aaaa #}
+
                 <div class="div-data-saida">
-                    <p class="texto-caixa-valores">{{ despesa[3] }}</p>
+                    <p class="texto-caixa-valores">{{ data }}</p>
                 </div>
 
                 <div class="div-valor-saida">
-                    <p class="texto-caixa-valores">R$ {{ despesa[1] }}</p>
+                    {% set valor = despesa[1] %}
+                    {% set valor_formatado2 = valor | round(2) | string %}  {# Converte o valor para string com 2 casas decimais #}
+                    {% if '.' in valor_formatado2 %}
+                        {% set valor_formatado2 = valor_formatado2 | replace('.', ',') %}  {# Substitui ponto por vírgula #}
+                    {% endif %}
+                    <p class="texto-caixa-valores">R$ {{ valor_formatado2 }}</p>
                 </div>
 
                 <div class="div-imgs-caixa-valores">

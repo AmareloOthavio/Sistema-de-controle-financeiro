@@ -40,26 +40,25 @@
             </div>
 
             <button class="Btn-Criar" type="submit">Criar</button>
-           
-           {% with messages = get_flashed_messages() %}
-              {% if messages %}
-                  <h1 class="mensagem">{{ messages[-1] }}</h1>
-              {% endif %}
-            {% endwith %}
 
        </form>
-            {% with messages = get_flashed_messages() %}
-              {% if messages %}
-                  <h3 class="mensagem">{{ messages[-1] }}</h3>
-              {% endif %}
-            {% endwith %}
 
           <a class="link-login" href="/">Já possui uma conta?</a>
 
         </div>
 
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          <h1 class="mensagem">{{ messages[-1] }}</h1>
+      {% endif %}
+      {% endwith %}
+
       </div>
+
+      
+
     </div>
+
 
 
     <div class="Background-image">

@@ -40,7 +40,7 @@
 
         <div class="div-add-fonte">
             <label for="fonte_desc">Fonte/Descrição:</label>
-            <input type="text" id="fonte_desc" name="fonte_desc" placeholder="..." class="input" required maxlength="10">
+            <input type="text" id="fonte_desc" name="fonte_desc" placeholder="..." class="input" required maxlength="40">
         </div>
 
         <div class="div-add-data">
@@ -58,6 +58,18 @@
       <button class="btn-salvar" type="submit">Salvar</button>
 
     </form>
+
+
+    <div class="modal" id="modalDeleta" style="display: none;">
+        <h1>Deseja realmente excluir?</h1>
+
+        <div class="div-modal">
+            <p id="fecharDeletar">Não</p>
+            <a href="" id="linkDeletar">Sim</a>
+        </div>
+
+    </div>
+
 
 
     <header id="Inicio" class="header">
@@ -90,11 +102,11 @@
     </header>
     {% macro formatar_valor(valor) %}
     {% if valor is none %}
-        {% set valor = 0 %}  {# Define valor como 0 se for None #}
+        {% set valor = 0 %}
     {% endif %}
-    {% set valor_formatado = valor | round(2) | string %}  {# Converte o valor para string com 2 casas decimais #}
+    {% set valor_formatado = valor | round(2) | string %}
     {% if '.' in valor_formatado %}
-        {% set valor_formatado = valor_formatado | replace('.', ',') %}  {# Substitui ponto por vírgula #}
+        {% set valor_formatado = valor_formatado | replace('.', ',') %}
     {% endif %}
     {{ valor_formatado }}
     {% endmacro %}
@@ -133,6 +145,7 @@
     <div class="blocoTotal">
         <div class="displayflex">
             <p class="text-blocoTotal">Total</p>
+            <img class="img-blocos" src="../static/img/icon-total.png" alt="">
         </div>
 
         <div class="Valor-Total">
@@ -157,7 +170,7 @@
                 {% set ano = data_str[0:4] %}
                 {% set mes = data_str[5:7] %}
                 {% set dia = data_str[8:10] %}
-                {% set data = dia ~ '-' ~ mes ~ '-' ~ ano %}  {# Formato dd-mm-aaaa #}
+                {% set data = dia ~ '-' ~ mes ~ '-' ~ ano %}
 
                 <div class="div-data-entrada">
                     <p class="texto-caixa-valores">{{ data }}</p>
@@ -171,7 +184,7 @@
                 <div class="div-imgs-caixa-valores">
                     <a href="/editar_receita/{{ receita[0] }}"><img class="img-caixa-valores" src="../static/img/img-editar.png" alt=""></a>
 
-                    <a href="/excluir_receita/{{ receita[0] }}"><img class="img-caixa-valores" src="../static/img/img-deletar.png" alt=""></a>
+                    <img class="img-caixa-valores" src="../static/img/img-deletar.png" onclick="abreModalDeletar('/excluir_receita/{{ receita[0] }}')" alt="">
                 </div>
 
             </div>
@@ -192,7 +205,7 @@
                 {% set ano = data_str2[0:4] %}
                 {% set mes = data_str2[5:7] %}
                 {% set dia = data_str2[8:10] %}
-                {% set data = dia ~ '-' ~ mes ~ '-' ~ ano %}  {# Formato dd-mm-aaaa #}
+                {% set data = dia ~ '-' ~ mes ~ '-' ~ ano %}
 
                 <div class="div-data-saida">
                     <p class="texto-caixa-valores">{{ data }}</p>
@@ -200,9 +213,9 @@
 
                 <div class="div-valor-saida">
                     {% set valor = despesa[1] %}
-                    {% set valor_formatado2 = valor | round(2) | string %}  {# Converte o valor para string com 2 casas decimais #}
+                    {% set valor_formatado2 = valor | round(2) | string %}
                     {% if '.' in valor_formatado2 %}
-                        {% set valor_formatado2 = valor_formatado2 | replace('.', ',') %}  {# Substitui ponto por vírgula #}
+                        {% set valor_formatado2 = valor_formatado2 | replace('.', ',') %}
                     {% endif %}
                     <p class="texto-caixa-valores">R$ {{ valor_formatado2 }}</p>
                 </div>
@@ -210,8 +223,10 @@
                 <div class="div-imgs-caixa-valores">
                     <a href="/editar_despesa/{{ despesa[0] }}"><img class="img-caixa-valores" src="../static/img/img-editar.png" alt=""></a>
 
-                    <a href="/excluir_despesa/{{ despesa[0] }}"><img class="img-caixa-valores" src="../static/img/img-deletar.png" alt=""></a>
+                    <img class="img-caixa-valores" src="../static/img/img-deletar.png" onclick="abreModalDeletar('/excluir_despesa/{{ despesa[0] }}')" alt="">
                 </div>
+
+                
 
             </div>
             {% endfor %}
@@ -246,16 +261,6 @@
                 </a>
 
             </div>
-
-            <div class="info-footer">
-
-                <a href="http://127.0.0.1:5501/templates/index.html#NossaMissao"><p class="texto-footer">NOSSA MISSÃO</p></a>
-
-                <a href="http://127.0.0.1:5501/templates/index.html#NossosServi%C3%A7os"><p class="texto-footer">NOSSOS SERVIÇOS</p></a>
-
-                <a href="http://127.0.0.1:5501/templates/index.html#FaleConosco"><p class="texto-footer">FALE CONOSCO</p></a>
-
-            </div>
         </div>
 
         <div class="footerpart2">
@@ -268,6 +273,8 @@
     <script>
         const btn_add = document.getElementById("btn_add")
         const fechar_aba = document.getElementById("fechar")
+        const fecharDeletar = document.getElementById("fecharDeletar")
+
         function rolarParaTabela() {
             setTimeout(function() {
                 if (sessionStorage.getItem('visited')) {
@@ -278,6 +285,20 @@
                 }
             }, 500)
         }
+
+        function fecharDeletarModal(){
+            document.getElementById("modalDeleta").style.display = "none"
+            document.getElementById("over").style.display = "none"
+        }
+
+        function abreModalDeletar(link) {
+            document.getElementById("linkDeletar").href = link
+            
+            document.getElementById("modalDeleta").style.display = "flex"
+            document.getElementById("over").style.display = "flex"
+        
+        }
+
 
         window.addEventListener('load', rolarParaTabela);
         function fechar() {
@@ -297,6 +318,7 @@
 
         }
 
+        fecharDeletar.addEventListener('click', fecharDeletarModal)
         btn_add.addEventListener('click', adicionar)
         fechar_aba.addEventListener('click', fechar)
 

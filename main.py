@@ -76,7 +76,6 @@ def logout():
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     con = conectar_no_banco()
-    id_usuario = session['id_usuario']
     if request.method == 'GET':
         if 'id_usuario' not in session:
             flash('Erro, você precisa estar em uma conta', 'error')
@@ -240,7 +239,7 @@ def cadastrar():
             # Inserir o novo usuário
             cursor.execute("INSERT INTO USUARIOS (NOME, EMAIL, SENHA) VALUES (?, ?, ?)", (nome, email, senha))
             con.commit()
-            cursor.execute('SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = ?', (email,))
+            cursor.execute('SELECT ID_USUARIO FROM USUARIOS WHERE EMAIL = ?', (email,))
             id_usuario = cursor.fetchone()
             session['id_usuario'] = id_usuario
 

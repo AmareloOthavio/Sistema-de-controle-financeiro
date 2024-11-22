@@ -21,7 +21,6 @@ password = 'sysdba'
 def conectar_no_banco():
     return fdb.connect(host=host, database=database, user=user, password=password)
 
-
 def calcular_receita():
     con = conectar_no_banco()
     cursor = con.cursor()
@@ -30,7 +29,6 @@ def calcular_receita():
     total = cursor.fetchall()
     cursor.close()
     return total[0][0] if total else 0
-
 
 def calcular_despesa():
     con = conectar_no_banco()
@@ -76,10 +74,12 @@ def logout():
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     con = conectar_no_banco()
+    if 'id_usuario' not in session:
+        flash('Erro, você precisa estar em uma conta', 'error')
+        return redirect(url_for('index'))
+
     if request.method == 'GET':
-        if 'id_usuario' not in session:
-            flash('Erro, você precisa estar em uma conta', 'error')
-            return redirect(url_for('index'))
+
         cursor1 = con.cursor()
         cursor2 = con.cursor()
 
@@ -128,13 +128,12 @@ def dashboard():
         return redirect(url_for('dashboard'))
 
 
-@app.route('/excluir_receita/<int:id_receita>', methods=['GET'])
+@app.route('/excluir_receita/<int:id_receita>')
 def excluir_receita(id_receita):
 
-    if request.method == 'GET':
-        if 'id_usuario' not in session:
-            flash('Erro, você precisa estar em uma conta', 'error')
-            return redirect(url_for('index'))
+    if 'id_usuario' not in session:
+        flash('Erro, você precisa estar em uma conta', 'error')
+        return redirect(url_for('index'))
 
     con = conectar_no_banco()
     cursor = con.cursor()
@@ -153,13 +152,13 @@ def excluir_receita(id_receita):
     return redirect(url_for('dashboard'))
 
 
-@app.route('/excluir_despesa/<int:id_despesa>', methods=['GET'])
+@app.route('/excluir_despesa/<int:id_despesa>')
 def excluir_despesa(id_despesa):
 
-    if request.method == 'GET':
-        if 'id_usuario' not in session:
-            flash('Erro, você precisa estar em uma conta', 'error')
-            return redirect(url_for('index'))
+
+    if 'id_usuario' not in session:
+        flash('Erro, você precisa estar em uma conta', 'error')
+        return redirect(url_for('index'))
 
     con = conectar_no_banco()
     cursor = con.cursor()
@@ -180,6 +179,9 @@ def excluir_despesa(id_despesa):
 
 @app.route('/editar_despesa/<int:id_despesa>', methods=['GET', 'POST'])
 def editar_despesa(id_despesa):
+    if 'id_usuario' not in session:
+        flash('Erro, você precisa estar em uma conta', 'error')
+        return redirect(url_for('index'))
 
     con = conectar_no_banco()
     if request.method == 'POST':
@@ -196,9 +198,7 @@ def editar_despesa(id_despesa):
         flash('Despesa editada com sucesso!', 'success')
         return redirect(url_for('dashboard'))
     elif request.method == 'GET':
-        if 'id_usuario' not in session:
-            flash('Erro, você precisa estar em uma conta', 'error')
-            return redirect(url_for('index'))
+
         cursor2 = con.cursor()
         cursor2.execute('SELECT ID_DESPESA, VALOR, DESCRICAO, DATA FROM DESPESAS WHERE ID_DESPESA = ?', (id_despesa,))
         despesas = cursor2.fetchall()
@@ -209,10 +209,9 @@ def editar_despesa(id_despesa):
 @app.route('/editar_receita/<int:id_receita>', methods=['GET', 'POST'])
 def editar_receita(id_receita):
 
-    if request.method == 'GET':
-        if 'id_usuario' not in session:
-            flash('Erro, você precisa estar em uma conta', 'error')
-            return redirect(url_for('index'))
+    if 'id_usuario' not in session:
+        flash('Erro, você precisa estar em uma conta', 'error')
+        return redirect(url_for('index'))
 
     con = conectar_no_banco()
     if request.method == 'POST':

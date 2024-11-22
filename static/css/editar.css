@@ -36,6 +36,14 @@ body {
   width: 30px;
 }
 
+.div-botoes-adicionar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 30px;
+}
+
 .adicionar-movimentacao {
   position: fixed;
   top: 50%;
@@ -55,6 +63,10 @@ body {
   justify-content: center;
   align-items: center;
   gap: 30px;
+}
+
+.link-cancelar {
+  color: white;
 }
 
 .div-ajustar-esquerda {

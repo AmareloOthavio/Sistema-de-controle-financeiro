@@ -134,6 +134,13 @@ def dashboard():
 
 @app.route('/excluir_receita/<int:id_receita>', methods=['GET'])
 def excluir_receita(id_receita):
+
+    if request.method == 'GET':
+        if 'id_usuario' not in session:
+            flash('Erro, você precisa estar em uma conta', 'error')
+            return redirect(url_for('index'))
+
+
     con = conectar_no_banco()
     cursor = con.cursor()
 
@@ -153,6 +160,12 @@ def excluir_receita(id_receita):
 
 @app.route('/excluir_despesa/<int:id_despesa>', methods=['GET'])
 def excluir_despesa(id_despesa):
+
+    if request.method == 'GET':
+        if 'id_usuario' not in session:
+            flash('Erro, você precisa estar em uma conta', 'error')
+            return redirect(url_for('index'))
+
     con = conectar_no_banco()
     cursor = con.cursor()
 
@@ -172,6 +185,12 @@ def excluir_despesa(id_despesa):
 
 @app.route('/editar_despesa/<int:id_despesa>', methods=['GET', 'POST'])
 def editar_despesa(id_despesa):
+
+    if request.method == 'GET':
+        if 'id_usuario' not in session:
+            flash('Erro, você precisa estar em uma conta', 'error')
+            return redirect(url_for('index'))
+
     con = conectar_no_banco()
     if request.method == 'POST':
         valor = request.form['valor']
@@ -196,6 +215,12 @@ def editar_despesa(id_despesa):
 
 @app.route('/editar_receita/<int:id_receita>', methods=['GET', 'POST'])
 def editar_receita(id_receita):
+
+    if request.method == 'GET':
+        if 'id_usuario' not in session:
+            flash('Erro, você precisa estar em uma conta', 'error')
+            return redirect(url_for('index'))
+
     con = conectar_no_banco()
     if request.method == 'POST':
         valor = request.form['valor']

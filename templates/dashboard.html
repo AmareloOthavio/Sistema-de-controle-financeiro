@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br" dir="ltr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +8,12 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&display=swap"
+        rel="stylesheet">
 
     <title>Planeja Facil</title>
 </head>
+
 <body>
 
     <div class="overlay" id="over" style="display: none;"></div>
@@ -21,44 +24,47 @@
             <img class="img-fechar-aba" src="../static/img/img-x.png" alt="">
         </div>
 
-      <h2>Adicionar operação</h2>
+        <h2>Adicionar operação</h2>
 
-      <div class="div-ajustar-esquerda">
-        <div class="botoes-movimentacao">
+        <div class="div-ajustar-esquerda">
+            <div class="botoes-movimentacao">
 
-          <div class="ajustar-texto-botoes">
+                <div class="ajustar-texto-botoes">
 
-            <p>Escolha a Movimentação:</p>
+                    <p>Escolha a Movimentação:</p>
 
-            <select id="tipo" name="tipo" class="selecionar-movimentacao" required>
-                <option value="saida">Saída</option>
-                <option value="entrada">Entrada</option>
-            </select>
+                    <select id="tipo" name="tipo" class="selecionar-movimentacao" required>
+                        <option value="saida">Saída</option>
+                        <option value="entrada">Entrada</option>
+                    </select>
 
-          </div>
+                </div>
+            </div>
+
+            <div class="div-add-fonte">
+                <label for="fonte_desc">Fonte/Descrição:</label>
+                <input type="text" id="fonte_desc" name="fonte_desc" placeholder="..." class="input" required
+                    maxlength="40">
+            </div>
+
+            <div class="div-add-data">
+                <label for="data">Adicione a data:</label>
+                <input type="date" id="data" name="data" class="input" required>
+            </div>
+
+            <div class="div-add-valor">
+                <label for="valor">Adicione o valor:</label>
+                <input type="number" id="valor" name="valor" placeholder="R$ 0,00" class="input" step="0.01" required>
+            </div>
         </div>
 
-        <div class="div-add-fonte">
-            <label for="fonte_desc">Fonte/Descrição:</label>
-            <input type="text" id="fonte_desc" name="fonte_desc" placeholder="..." class="input" required maxlength="40">
+        <div class="div-botoes-adicionar">
+
+            <button class="btn-salvar" type="submit">Salvar</button>
+
+            <a href="/dashboard" class="link-cancelar">Cancelar</a>
         </div>
-
-        <div class="div-add-data">
-          <label for="data">Adicione a data:</label>
-          <input type="date" id="data" name="data" class="input" required>
-        </div>
-
-        <div class="div-add-valor">
-          <label for="valor">Adicione o valor:</label>
-          <input type="number" id="valor" name="valor" placeholder="R$ 0,00" class="input" step="0.01" required>
-        </div>
-      </div>
-
-
-      <button class="btn-salvar" type="submit">Salvar</button>
-
     </form>
-
 
     <div class="modal" id="modalDeleta" style="display: none;">
         <h1>Deseja realmente excluir?</h1>
@@ -70,12 +76,10 @@
 
     </div>
 
-
-
     <header id="Inicio" class="header">
-        
+
         <div class="Container-Header">
-            
+
             <div class="Textos-Header">
                 <div class="logo-header">
                     <a href="/dashboard"><img class="Logo" src="../static/img/Logo_Oficial.png" alt="Logo" /></a>
@@ -96,65 +100,67 @@
         </div>
 
         <div class="logout">
-           <a href="/logout"><img class="img-logout" src="../static/img/logout.png" alt=""></a>
+            <a href="/logout"><img class="img-logout" src="../static/img/logout.png" alt=""></a>
         </div>
 
     </header>
     {% macro formatar_valor(valor) %}
     {% if valor is none %}
-        {% set valor = 0 %}
+    {% set valor = 0 %}
     {% endif %}
     {% set valor_formatado = valor | round(2) | string %}
     {% if '.' in valor_formatado %}
-        {% set valor_formatado = valor_formatado | replace('.', ',') %}
+    {% set valor_formatado = valor_formatado | replace('.', ',') %}
     {% endif %}
     {{ valor_formatado }}
     {% endmacro %}
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-      <h3 class="mensagem">{{ messages[-1] }}</h3>
-  {% endif %}
-{% endwith %}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <h3 class="mensagem">{{ messages[-1] }}</h3>
+    {% endif %}
+    {% endwith %}
 
     <div class="ajuste-responsivo">
         <div class="blocos">
 
-        <div class="blocoEntrada">
-            <div class="displayflex">
-                <p class="text-blocoEntrada">Entrada</p>
-                <img class="img-blocos" src="../static/img/seta-entrada.png" alt="">
+            <div class="blocoEntrada">
+                <div class="displayflex">
+                    <p class="text-blocoEntrada">Entrada</p>
+                    <img class="img-blocos" src="../static/img/seta-entrada.png" alt="">
+                </div>
+
+                <div class="Valor-Entrada">
+                    <p>R$ {{ formatar_valor(total_receita) }}</p>
+                </div>
             </div>
 
-            <div class="Valor-Entrada">
-                <p>R$ {{ formatar_valor(total_receita) }}</p>
+            <div class="blocoSaida">
+                <div class="displayflex">
+                    <p class="text-blocoSaida">Saída</p>
+                    <img class="img-blocos" src="../static/img/seta-saida.png" alt="">
+                </div>
+
+                <div class="Valor-Saida">
+                    <p>R$ {{ formatar_valor(total_despesa) }}</p>
+                </div>
+            </div>
+
+            <div class="blocoTotal">
+                <div class="displayflex">
+                    <p class="text-blocoTotal">Total</p>
+                    <img class="img-blocos" src="../static/img/icon-total.png" alt="">
+                </div>
+
+                <div class="Valor-Total">
+                    {% set total_receita = total_receita if total_receita != None else 0 %}
+                    {% set total_despesa = total_despesa if total_despesa != None else 0 %}
+                    <p>R$ {{ formatar_valor(total_receita - total_despesa) }}</p>
+                </div>
             </div>
         </div>
-
-        <div class="blocoSaida">
-            <div class="displayflex">
-                <p class="text-blocoSaida">Saída</p>
-                <img class="img-blocos" src="../static/img/seta-saida.png" alt="">
-            </div>
-
-            <div class="Valor-Saida">
-                <p>R$ {{ formatar_valor(total_despesa) }}</p>
-            </div>
     </div>
 
-    <div class="blocoTotal">
-        <div class="displayflex">
-            <p class="text-blocoTotal">Total</p>
-            <img class="img-blocos" src="../static/img/icon-total.png" alt="">
-        </div>
-
-        <div class="Valor-Total">
-            {% set total_receita = total_receita if total_receita != None else 0 %}
-            {% set total_despesa = total_despesa if total_despesa != None else 0 %}
-            <p>R$ {{ formatar_valor(total_receita - total_despesa) }}</p>
-        </div>
-    </div>
-</div>
 
     <div class="displayflex2">
         <div class="caixa-historico">
@@ -182,21 +188,23 @@
                 </div>
 
                 <div class="div-imgs-caixa-valores">
-                    <a href="/editar_receita/{{ receita[0] }}"><img class="img-caixa-valores" src="../static/img/img-editar.png" alt=""></a>
+                    <a href="/editar_receita/{{ receita[0] }}"><img class="img-caixa-valores"
+                            src="../static/img/img-editar.png" alt=""></a>
 
-                    <img class="img-caixa-valores" src="../static/img/img-deletar.png" onclick="abreModalDeletar('/excluir_receita/{{ receita[0] }}')" alt="">
+                    <img class="img-caixa-valores" src="../static/img/img-deletar.png"
+                        onclick="abreModalDeletar('/excluir_receita/{{ receita[0] }}')" alt="">
                 </div>
 
             </div>
-        {% endfor %}
+            {% endfor %}
 
-        {% for despesa in despesas %}
+            {% for despesa in despesas %}
 
             <div class="caixa-valores">
 
 
                 <img class="img-seta" src="../static/img/seta-saida.png" alt="">
-                
+
                 <div class="div-texto-saida">
                     <p class="texto-caixa-Saida" style="width: 74px; text-align: center;">{{ despesa[2] }}</p>
                 </div>
@@ -215,18 +223,20 @@
                     {% set valor = despesa[1] %}
                     {% set valor_formatado2 = valor | round(2) | string %}
                     {% if '.' in valor_formatado2 %}
-                        {% set valor_formatado2 = valor_formatado2 | replace('.', ',') %}
+                    {% set valor_formatado2 = valor_formatado2 | replace('.', ',') %}
                     {% endif %}
                     <p class="texto-caixa-valores">R$ {{ valor_formatado2 }}</p>
                 </div>
 
                 <div class="div-imgs-caixa-valores">
-                    <a href="/editar_despesa/{{ despesa[0] }}"><img class="img-caixa-valores" src="../static/img/img-editar.png" alt=""></a>
+                    <a href="/editar_despesa/{{ despesa[0] }}"><img class="img-caixa-valores"
+                            src="../static/img/img-editar.png" alt=""></a>
 
-                    <img class="img-caixa-valores" src="../static/img/img-deletar.png" onclick="abreModalDeletar('/excluir_despesa/{{ despesa[0] }}')" alt="">
+                    <img class="img-caixa-valores" src="../static/img/img-deletar.png"
+                        onclick="abreModalDeletar('/excluir_despesa/{{ despesa[0] }}')" alt="">
                 </div>
 
-                
+
 
             </div>
             {% endfor %}
@@ -276,7 +286,7 @@
         const fecharDeletar = document.getElementById("fecharDeletar")
 
         function rolarParaTabela() {
-            setTimeout(function() {
+            setTimeout(function () {
                 if (sessionStorage.getItem('visited')) {
                     let scrollY = window.scrollY
                     window.scrollTo(0, 600)
@@ -286,17 +296,17 @@
             }, 500)
         }
 
-        function fecharDeletarModal(){
+        function fecharDeletarModal() {
             document.getElementById("modalDeleta").style.display = "none"
             document.getElementById("over").style.display = "none"
         }
 
         function abreModalDeletar(link) {
             document.getElementById("linkDeletar").href = link
-            
+
             document.getElementById("modalDeleta").style.display = "flex"
             document.getElementById("over").style.display = "flex"
-        
+
         }
 
 
@@ -323,43 +333,44 @@
         fechar_aba.addEventListener('click', fechar)
 
 
-        
 
-            const btn_entrada = document.getElementById("entradaBtn")
-            const btn_saida = document.getElementById("saidaBtn")
-            const input = document.getElementById("tipo")
-    
-            function entrada() {
-                input.value = "entrada"
-                
-                btn_entrada.style.background = "green"
-                btn_entrada.style.color = "white"
-                btn_entrada.style.border = "none"
 
-                btn_saida.style.background = "#193441"
-                btn_saida.style.border = "1.5px solid white"
-                btn_saida.style.color = "#FF0000"
+        const btn_entrada = document.getElementById("entradaBtn")
+        const btn_saida = document.getElementById("saidaBtn")
+        const input = document.getElementById("tipo")
 
-            }
-    
-            function saida() {
-                input.value = "saida"
+        function entrada() {
+            input.value = "entrada"
 
-                btn_saida.style.background = "red"
-                btn_saida.style.color = "white"
-                btn_saida.style.border = "none"
+            btn_entrada.style.background = "green"
+            btn_entrada.style.color = "white"
+            btn_entrada.style.border = "none"
 
-                btn_entrada.style.background = "#193441"
-                btn_entrada.style.color = "#28B326"
-                btn_entrada.style.border = "1.5px solid white"
+            btn_saida.style.background = "#193441"
+            btn_saida.style.border = "1.5px solid white"
+            btn_saida.style.color = "#FF0000"
 
-            }
-    
-            btn_entrada.addEventListener("click", entrada)
-            btn_saida.addEventListener("click", saida)
-            
-        
+        }
+
+        function saida() {
+            input.value = "saida"
+
+            btn_saida.style.background = "red"
+            btn_saida.style.color = "white"
+            btn_saida.style.border = "none"
+
+            btn_entrada.style.background = "#193441"
+            btn_entrada.style.color = "#28B326"
+            btn_entrada.style.border = "1.5px solid white"
+
+        }
+
+        btn_entrada.addEventListener("click", entrada)
+        btn_saida.addEventListener("click", saida)
+
+
     </script>
 
 </body>
+
 </html>

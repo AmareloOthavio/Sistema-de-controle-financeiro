@@ -4,7 +4,7 @@ import fdb
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'jqwdbjA1HSDB23hjBWd8723DWH_V5HD47283JHDKJVBWhdj'
 host = 'localhost'
-database = r' C:\Users\Aluno\Desktop\pedro\SistemaFinanceiro.FDB'
+database = r' C:\Users\Aluno\Downloads\Banco - Sistema financeiro\SistemaFinanceiro.FDB'
 user = 'sysdba'
 password = 'sysdba'
 
@@ -21,6 +21,7 @@ password = 'sysdba'
 def conectar_no_banco():
     return fdb.connect(host=host, database=database, user=user, password=password)
 
+
 def calcular_receita():
     con = conectar_no_banco()
     cursor = con.cursor()
@@ -29,6 +30,7 @@ def calcular_receita():
     total = cursor.fetchall()
     cursor.close()
     return total[0][0] if total else 0
+
 
 def calcular_despesa():
     con = conectar_no_banco()
@@ -271,7 +273,7 @@ def cadastrar():
                 flash('Erro: A senha precisa ter pelo menos 8 caracteres', 'error')
                 return redirect(url_for('cadastrar'))
             if simbolos_usados < 1:
-                flash('Erro: A senha precisa ter pelo menos 1 símbolos diferentes do seu teclado', 'error')
+                flash('Erro: A senha precisa ter pelo menos 1 símbolo do seu teclado', 'error')
                 return redirect(url_for('cadastrar'))
             if numeros_usados < 1:
                 flash('Erro: A senha precisa ter pelo menos um número', 'error')

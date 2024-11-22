@@ -88,7 +88,6 @@ def dashboard():
         cursor1.execute('SELECT * FROM USUARIOS WHERE ID_USUARIO = ?', (id_usuario,))
         usuario = cursor1.fetchone()
         nome_usuario = usuario[1]
-        print(usuario)
 
         cursor2.execute('SELECT ID_DESPESA, VALOR, DESCRICAO, DATA FROM DESPESAS WHERE ID_USUARIO = ? ORDER BY DATA DESC',
                         (id_usuario,))
@@ -110,24 +109,18 @@ def dashboard():
         tipo = request.form['tipo']
         fonte_desc = request.form['fonte_desc']
 
-        print('\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n')
-        print(f"POST RECEBIDO: Valor = {valor}, Data = {data}, Tipo = {tipo}, Fonte/Descrição = {fonte_desc}")
-
         cursor3 = con.cursor()
 
-        email = session['email']
         cursor3.execute('SELECT * FROM USUARIOS WHERE ID_USUARIO = ?', (session['id_usuario'],))
         usuario = cursor3.fetchone()
         id_usuario = usuario[0]
 
         if tipo == 'saida':
             flash('Despesa adicionada com sucesso!', 'success')
-            print("Inserindo despesa...")
             cursor3.execute('INSERT INTO DESPESAS (ID_USUARIO, VALOR, DESCRICAO, DATA) VALUES(?, ?, ?, ?)',
                             (id_usuario, valor, fonte_desc, data))
         elif tipo == 'entrada':
             flash('Receita adicionada com sucesso', 'success')
-            print("Inserindo receita...")
             cursor3.execute('INSERT INTO RECEITAS (ID_USUARIO, VALOR,  FONTE, DATA) VALUES(?, ?, ?, ?)',
                             (id_usuario, valor, fonte_desc, data))
         con.commit()
@@ -186,7 +179,6 @@ def editar_despesa(id_despesa):
         fonte_desc = request.form['fonte_desc']
         cursor1 = con.cursor()
 
-        print('\n ATUALIZANDO DE EDITAR DESPESA')
         cursor1.execute('UPDATE DESPESAS SET VALOR = ?, DATA = ?, DESCRICAO = ? WHERE ID_DESPESA = ?',
                         (valor, data, fonte_desc, id_despesa))
         con.commit()
@@ -198,7 +190,6 @@ def editar_despesa(id_despesa):
         cursor2.execute('SELECT ID_DESPESA, VALOR, DESCRICAO, DATA FROM DESPESAS WHERE ID_DESPESA = ?', (id_despesa,))
         despesas = cursor2.fetchall()
         cursor2.close()
-        print('\n GET DE EDITAR ENVIADO')
         return render_template('editar.html', tipo='despesa', id=id_despesa, despesas=despesas)
 
 
@@ -211,7 +202,6 @@ def editar_receita(id_receita):
         fonte_desc = request.form['fonte_desc']
         cursor1 = con.cursor()
 
-        print('\n ATUALIZANDO DE EDITAR')
         cursor1.execute('UPDATE RECEITAS SET VALOR = ?, DATA = ?, FONTE = ? WHERE ID_RECEITA = ?',
                         (valor, data, fonte_desc, id_receita))
         con.commit()
@@ -223,7 +213,6 @@ def editar_receita(id_receita):
         cursor1.execute('SELECT ID_RECEITA, VALOR, FONTE, DATA FROM RECEITAS WHERE ID_RECEITA = ?', (id_receita,))
         receitas = cursor1.fetchall()
         cursor1.close()
-        print('\n GET DE EDITAR ENVIADO')
         return render_template('editar.html', tipo='receita', id=id_receita, receitas=receitas)
 
 

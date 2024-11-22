@@ -68,8 +68,8 @@ def index():
 @app.route('/logout')
 def logout():
     session.pop('email', None)
-    session.pop('senha', None)
     session.pop('id_usuario', None)
+    session.pop('senha', None)
     return redirect(url_for('index'))
 
 

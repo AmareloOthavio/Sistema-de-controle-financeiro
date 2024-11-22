@@ -70,6 +70,7 @@ def index():
 def logout():
     session.pop('email', None)
     session.pop('senha', None)
+    session.pop('id_usuario', None)
     return redirect(url_for('index'))
 
 

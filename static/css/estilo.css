@@ -328,6 +328,11 @@ form {
     font-size: 20px;
     cursor: pointer;
     margin-top: 25px;
+    transition: all 0.5s ease;
+}
+
+.btn-enviar:hover {
+    background-color: #828a0f;
 }
 
 .div-btn-enviar {
@@ -403,7 +408,7 @@ footer {
 }
 
 .texto-footer2 {
-    font-size: 20px;
+    font-size: 15px;
     font-family: Kantumruy Pro;
     font-weight: 500;
 }

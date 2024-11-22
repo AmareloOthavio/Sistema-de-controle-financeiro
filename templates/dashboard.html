@@ -333,42 +333,6 @@
         fechar_aba.addEventListener('click', fechar)
 
 
-
-
-        const btn_entrada = document.getElementById("entradaBtn")
-        const btn_saida = document.getElementById("saidaBtn")
-        const input = document.getElementById("tipo")
-
-        function entrada() {
-            input.value = "entrada"
-
-            btn_entrada.style.background = "green"
-            btn_entrada.style.color = "white"
-            btn_entrada.style.border = "none"
-
-            btn_saida.style.background = "#193441"
-            btn_saida.style.border = "1.5px solid white"
-            btn_saida.style.color = "#FF0000"
-
-        }
-
-        function saida() {
-            input.value = "saida"
-
-            btn_saida.style.background = "red"
-            btn_saida.style.color = "white"
-            btn_saida.style.border = "none"
-
-            btn_entrada.style.background = "#193441"
-            btn_entrada.style.color = "#28B326"
-            btn_entrada.style.border = "1.5px solid white"
-
-        }
-
-        btn_entrada.addEventListener("click", entrada)
-        btn_saida.addEventListener("click", saida)
-
-
     </script>
 
 </body>

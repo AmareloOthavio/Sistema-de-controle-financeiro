@@ -8,7 +8,6 @@ database = r' C:\Users\Aluno\Desktop\pedro\SistemaFinanceiro.FDB'
 user = 'sysdba'
 password = 'sysdba'
 
-
 """ 
     Função para criar e retornar uma nova conexão com o banco de dados, escolhi
     fazer dessa maneira porque descobri que usando uma simples conexão global
@@ -70,6 +69,7 @@ def index():
 def logout():
     session.pop('email', None)
     session.pop('senha', None)
+    session.pop('id_usuario', None)
     return redirect(url_for('index'))
 
 
@@ -88,8 +88,9 @@ def dashboard():
         usuario = cursor1.fetchone()
         nome_usuario = usuario[1]
 
-        cursor2.execute('SELECT ID_DESPESA, VALOR, DESCRICAO, DATA FROM DESPESAS WHERE ID_USUARIO = ? ORDER BY DATA DESC',
-                        (id_usuario,))
+        cursor2.execute(
+            'SELECT ID_DESPESA, VALOR, DESCRICAO, DATA FROM DESPESAS WHERE ID_USUARIO = ? ORDER BY DATA DESC',
+            (id_usuario,))
         despesas = cursor2.fetchall()
 
         cursor1.execute('SELECT ID_RECEITA, VALOR, FONTE, DATA FROM RECEITAS WHERE ID_USUARIO = ? ORDER BY DATA DESC',
@@ -183,6 +184,7 @@ def editar_despesa(id_despesa):
         con.commit()
         cursor1.close()
         con.close()
+        flash('Despesa editada com sucesso!', 'success')
         return redirect(url_for('dashboard'))
     elif request.method == 'GET':
         cursor2 = con.cursor()
@@ -206,6 +208,7 @@ def editar_receita(id_receita):
         con.commit()
         cursor1.close()
         con.close()
+        flash('Receita editada com sucesso!', 'success')
         return redirect(url_for('dashboard'))
     elif request.method == 'GET':
         cursor1 = con.cursor()
@@ -222,6 +225,28 @@ def cadastrar():
         email = request.form['email']
         senha = request.form['senha']
 
+        simbolos = ['!', '@', '#', '$', '%', '¨', '&', '*', '(', ')', '-', '_', '+', '=', '§', '"', "'",
+                    '|', ':', ';', '?', '°', '<', '>', '{', '}', '[', ']', ',', '.', '*', '~', '´', '`',
+                    'º', 'ª', '/', '^', '¹', '²', '³', '£', '¢', '¬']
+        numeros = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+        numeros_usados = 0
+        simbolos_usados = 0
+        for simbolo in simbolos:
+            if simbolo in senha:
+                simbolos_usados += 1
+        for numero in numeros:
+            if numero in senha:
+                numeros_usados += 1
+
+        if len(senha) < 8:
+            flash('Erro: A senha precisa ter pelo menos 8 caracteres')
+            return redirect(url_for('cadastrar'))
+        if simbolos_usados < 2:
+            flash('Erro: A senha precisa ter pelo menos 2 símbolos diferentes do seu teclado')
+            return redirect(url_for('cadastrar'))
+        if numeros_usados < 2:
+            flash('Erro: A senha precisa ter pelo menos dois números diferentes')
+            return redirect(url_for('cadastrar'))
         # Guardando dados localmente no usuário
         session['email'] = email
         session['senha'] = senha

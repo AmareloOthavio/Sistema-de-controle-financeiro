@@ -4,7 +4,7 @@ import fdb
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'jqwdbjA1HSDB23hjBWd8723DWH_V5HD47283JHDKJVBWhdj'
 host = 'localhost'
-database = r' C:\Users\Aluno\Desktop\pedro\SistemaFinanceiro.FDB'
+database = r' C:\Users\Aluno\Downloads\Banco - Sistema financeiro\SistemaFinanceiro.FDB'
 user = 'sysdba'
 password = 'sysdba'
 
@@ -225,42 +225,44 @@ def cadastrar():
         email = request.form['email']
         senha = request.form['senha']
 
-        simbolos = ['!', '@', '#', '$', '%', '¨', '&', '*', '(', ')', '-', '_', '+', '=', '§', '"', "'",
-                    '|', ':', ';', '?', '°', '<', '>', '{', '}', '[', ']', ',', '.', '*', '~', '´', '`',
-                    'º', 'ª', '/', '^', '¹', '²', '³', '£', '¢', '¬']
-        numeros = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-        numeros_usados = 0
-        simbolos_usados = 0
-        for simbolo in simbolos:
-            if simbolo in senha:
-                simbolos_usados += 1
-        for numero in numeros:
-            if numero in senha:
-                numeros_usados += 1
-
-        if len(senha) < 8:
-            flash('Erro: A senha precisa ter pelo menos 8 caracteres')
-            return redirect(url_for('cadastrar'))
-        if simbolos_usados < 2:
-            flash('Erro: A senha precisa ter pelo menos 2 símbolos diferentes do seu teclado')
-            return redirect(url_for('cadastrar'))
-        if numeros_usados < 2:
-            flash('Erro: A senha precisa ter pelo menos dois números diferentes')
-            return redirect(url_for('cadastrar'))
-        # Guardando dados localmente no usuário
-        session['email'] = email
-        session['senha'] = senha
-
         con = conectar_no_banco()  # Cria uma nova conexão
         cursor = con.cursor()
 
         try:
+            # VALIDAÇÕES
             # Verificar se já foi criada uma conta neste e-mail
             cursor.execute("SELECT 1 FROM USUARIOS WHERE EMAIL = ?", (email,))
             if cursor.fetchone():  # Se existir algum registro
                 flash("Erro: Este e-mail já possui uma conta.", "error")
                 return redirect(url_for('cadastrar'))
 
+            # VALIDAÇÕES DE SENHA
+            simbolos = ['!', '@', '#', '$', '%', '¨', '&', '*', '(', ')', '-', '_', '+', '=', '§', '"', "'",
+                        '|', ':', ';', '?', '°', '<', '>', '{', '}', '[', ']', ',', '.', '*', '~', '´', '`',
+                        'º', 'ª', '/', '^', '¹', '²', '³', '£', '¢', '¬']
+            numeros = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+            numeros_usados = 0
+            simbolos_usados = 0
+            for simbolo in simbolos:
+                if simbolo in senha:
+                    simbolos_usados += 1
+            for numero in numeros:
+                if numero in senha:
+                    numeros_usados += 1
+
+            if len(senha) < 8:
+                flash('Erro: A senha precisa ter pelo menos 8 caracteres')
+                return redirect(url_for('cadastrar'))
+            if simbolos_usados < 1:
+                flash('Erro: A senha precisa ter pelo menos 2 símbolos diferentes do seu teclado')
+                return redirect(url_for('cadastrar'))
+            if numeros_usados < 1:
+                flash('Erro: A senha precisa ter pelo menos dois números diferentes')
+                return redirect(url_for('cadastrar'))
+
+            # Guardando dados localmente no usuário
+            session['email'] = email
+            session['senha'] = senha
             # Inserir o novo usuário
             cursor.execute("INSERT INTO USUARIOS (NOME, EMAIL, SENHA) VALUES (?, ?, ?)", (nome, email, senha))
             con.commit()

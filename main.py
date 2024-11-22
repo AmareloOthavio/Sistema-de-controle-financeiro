@@ -4,7 +4,7 @@ import fdb
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'jqwdbjA1HSDB23hjBWd8723DWH_V5HD47283JHDKJVBWhdj'
 host = 'localhost'
-database = r' C:\Users\Aluno\Downloads\Banco - Sistema financeiro\SistemaFinanceiro.FDB'
+database = r' C:\Users\Aluno\Desktop\pedro\SistemaFinanceiro.FDB'
 user = 'sysdba'
 password = 'sysdba'
 
@@ -111,9 +111,7 @@ def dashboard():
 
         cursor3 = con.cursor()
 
-        cursor3.execute('SELECT * FROM USUARIOS WHERE ID_USUARIO = ?', (session['id_usuario'],))
-        usuario = cursor3.fetchone()
-        id_usuario = usuario[0]
+        id_usuario = session['id_usuario']
 
         if tipo == 'saida':
             flash('Despesa adicionada com sucesso!', 'success')
@@ -123,13 +121,11 @@ def dashboard():
             flash('Receita adicionada com sucesso', 'success')
             cursor3.execute('INSERT INTO RECEITAS (ID_USUARIO, VALOR,  FONTE, DATA) VALUES(?, ?, ?, ?)',
                             (id_usuario, valor, fonte_desc, data))
+        cursor3.close()
         con.commit()
         con.close()
 
         return redirect(url_for('dashboard'))
-
-    con.close()
-    return render_template('dashboard.html')
 
 
 @app.route('/excluir_receita/<int:id_receita>', methods=['GET'])
@@ -139,7 +135,6 @@ def excluir_receita(id_receita):
         if 'id_usuario' not in session:
             flash('Erro, você precisa estar em uma conta', 'error')
             return redirect(url_for('index'))
-
 
     con = conectar_no_banco()
     cursor = con.cursor()
@@ -186,11 +181,6 @@ def excluir_despesa(id_despesa):
 @app.route('/editar_despesa/<int:id_despesa>', methods=['GET', 'POST'])
 def editar_despesa(id_despesa):
 
-    if request.method == 'GET':
-        if 'id_usuario' not in session:
-            flash('Erro, você precisa estar em uma conta', 'error')
-            return redirect(url_for('index'))
-
     con = conectar_no_banco()
     if request.method == 'POST':
         valor = request.form['valor']
@@ -206,6 +196,9 @@ def editar_despesa(id_despesa):
         flash('Despesa editada com sucesso!', 'success')
         return redirect(url_for('dashboard'))
     elif request.method == 'GET':
+        if 'id_usuario' not in session:
+            flash('Erro, você precisa estar em uma conta', 'error')
+            return redirect(url_for('index'))
         cursor2 = con.cursor()
         cursor2.execute('SELECT ID_DESPESA, VALOR, DESCRICAO, DATA FROM DESPESAS WHERE ID_DESPESA = ?', (id_despesa,))
         despesas = cursor2.fetchall()
@@ -276,13 +269,13 @@ def cadastrar():
                     numeros_usados += 1
 
             if len(senha) < 8:
-                flash('Erro: A senha precisa ter pelo menos 8 caracteres')
+                flash('Erro: A senha precisa ter pelo menos 8 caracteres', 'error')
                 return redirect(url_for('cadastrar'))
             if simbolos_usados < 1:
-                flash('Erro: A senha precisa ter pelo menos 2 símbolos diferentes do seu teclado')
+                flash('Erro: A senha precisa ter pelo menos 1 símbolos diferentes do seu teclado', 'error')
                 return redirect(url_for('cadastrar'))
             if numeros_usados < 1:
-                flash('Erro: A senha precisa ter pelo menos dois números diferentes')
+                flash('Erro: A senha precisa ter pelo menos um número', 'error')
                 return redirect(url_for('cadastrar'))
 
             # Guardando dados localmente no usuário

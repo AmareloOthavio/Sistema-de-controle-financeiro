@@ -298,6 +298,7 @@ def cadastrar():
             con.close()  # Fechar a conexão
 
         # Após o sucesso, redireciona para a página inicial
+        flash('Conta criada com sucesso!', 'success')
         return redirect(url_for('index'))
 
     # Se for um GET, apenas renderiza o formulário de cadastro

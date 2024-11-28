@@ -22,6 +22,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100vw;
+  height: 100vh;
 }
 
 .Cadastro {
@@ -179,3 +181,27 @@ form {
   
 
 }
+
+/* @media(max-width: 800px) {
+  .Background-image {
+    display: none;
+  }
+  .voltar {
+    left: 40px;
+  }
+  .Section {
+    height: 150vh;
+    width: 150vw;
+  }
+  .voltar a {
+    font-size: 30px;
+  }  
+  .voltar img {
+    width: 45px;
+  }
+  .caixa-cadastro {
+    background-color: #3E606F;
+    width: 150%;
+    height: 60vh;
+  }
+} */

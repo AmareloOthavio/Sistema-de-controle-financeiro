@@ -26,7 +26,7 @@ def calcular_receita():
     cursor = con.cursor()
     cursor.execute('SELECT SUM(VALOR) FROM RECEITAS r WHERE r.ID_USUARIO = ?',
                    (session['id_usuario'],))
-    total = cursor.fetchall()
+    total = cursor.fetchall() #pode ser utilizado o fetchone
     cursor.close()
     return total[0][0] if total else 0
 

@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../static/img/Logo_Oficial.png">
 
     <title>Planeja Fácil</title>
 </head>
@@ -45,9 +46,15 @@
                     </div>
                 </div>
 
-                {% with messages = get_flashed_messages() %}
-                  {% if messages %}
-                      <h3 class="mensagem">{{ messages[-1] }}</h3>
+                {% with erros = get_flashed_messages(category_filter=["error"]) %}
+                  {% if erros %}
+                      <h3 class="mensagem">{{ erros[-1] }}</h3>
+                  {% endif %}
+                {% endwith %}
+
+                {% with mensagensS = get_flashed_messages(category_filter=["success"]) %}
+                  {% if mensagensS %}
+                      <h3 class="mensagem2">{{ mensagensS[-1] }}</h3>
                   {% endif %}
                 {% endwith %}
                 <button type="submit" class="Btn-Entrar">Entrar</button>

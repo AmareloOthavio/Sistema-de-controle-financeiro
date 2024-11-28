@@ -20,6 +20,12 @@ body {
     font-size: 16px;
 }
 
+.mensagem2 {
+    color: green;
+    margin-top: 16px;
+    font-size: 16px;
+}
+
 .header {
     width: 100%;
     height: 520px;
@@ -277,7 +283,7 @@ form {
 }
 
 .texto-bloco {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 100;
 }
 

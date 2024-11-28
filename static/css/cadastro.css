@@ -177,31 +177,110 @@ form {
 }
 
 @media (min-width: 769px) and (max-width: 1024px){
-  
-  
 
 }
 
-/* @media(max-width: 800px) {
+
+@media(max-width: 800px) {
   .Background-image {
     display: none;
   }
+  .Cadastro {
+    height: 40vh;
+    gap: 20px;
+  }
   .voltar {
-    left: 40px;
+    left: 66%;
   }
   .Section {
-    height: 150vh;
-    width: 150vw;
+    height: 64vh;
   }
   .voltar a {
-    font-size: 30px;
+    font-size: 15px;
   }  
   .voltar img {
-    width: 45px;
+    width: 22.5px;
   }
   .caixa-cadastro {
     background-color: #3E606F;
-    width: 150%;
-    height: 60vh;
+    width: 250px;
+    height: 39.5vh;
+    gap:3px;
   }
-} */
+  .Juntar {
+    margin-left: 17%;
+    margin-top: 50%;
+  }
+  input {
+    width: 150px;
+    height: 17.5px;
+    font-size: 7.5px;
+    padding: 0 0.357em;
+  }
+  label {
+    font-size: 11px;
+    width: 40px;
+  }
+  .Titulo-caixa-cadastro {
+    color: white;
+    font-size: 13.5px;
+  }
+  .Btn-Criar {
+  width: 105px;
+  height: 33.75px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+.Cadastro .caixa-cadastro .link-login {
+  color: #D1DBBD;
+  text-decoration: underline;
+  font-size: 12px;
+}
+}
+
+@media(min-width:768px) and (min-height:1000px) and (max-height:1100px) {
+  .voltar {
+    left: 118%;
+}
+}
+
+@media(min-width:768px) and (max-width:900px) {
+  .Juntar {
+    margin-left: 24%;
+  }
+  .caixa-cadastro {
+    height: 48.5vh;
+    width: 50vw;
+    gap: 30px;
+  }
+  .Titulo-caixa-cadastro {
+    font-size: 24.5px;
+  }
+  .Cadastro {
+    margin-right: -33px;
+    position: relative;
+    right: 41%;
+  }
+  .Btn-Criar {
+    width: 157.5px;
+    height: 50,625px;
+    border-radius: 10px;
+    font-size: 19.5px;
+  }
+  .Cadastro .caixa-cadastro .link-login {
+    color: #D1DBBD;
+    text-decoration: underline;
+    font-size: 17px;
+  }
+  input {
+    width: 200px;
+    height: 25px;
+    font-size: 13px;
+    padding: 0 0.357em;
+  }
+  label {
+    font-size: 16px;
+    width: 40px;
+    margin-right: 10px;
+  }
+}

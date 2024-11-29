@@ -682,12 +682,26 @@ footer {
   }
 
   input {
-    width: 100%;
+    width: 60%;
     font-size: 14px;
   }
 
+  .botoes-movimentacao p {
+    font-size: 14px;
+  }
+
+  .ajustar-texto-botoes {
+    gap: 30px;
+    font-size: 14px
+  }
+
   .btn-salvar {
-    width: 100%;
+    width: 30%;
+    font-size: 15px;
+  }
+
+  .link-cancelar {
+    font-size: 15px;
   }
 
   footer {
@@ -713,7 +727,6 @@ footer {
 
   .btn-adcionar-movi {
     font-size: 12px;
-    padding: 10px;
   }
 
   .logo-header {
@@ -728,6 +741,15 @@ footer {
     right: 35px;
     top: 30px;
   }
+
+  .ajustar-texto-botoes,
+  .div-add-fonte,
+  .div-add-data,
+  .div-add-valor {
+    flex-direction: column;
+    gap: 5px;
+  }
+
 
   .Valor-Entrada,
   .Valor-Saida,
@@ -767,6 +789,10 @@ footer {
     width: 6px;
   }
 
+  .img-caixa-valores {
+    width: 16px;
+  }
+
   .texto-caixa-Entrada,
   .texto-caixa-Saida,
   .texto-caixa-valores {
@@ -787,6 +813,67 @@ footer {
 
   .texto-footer2 {
     font-size: 14px;
+    text-align: center;
   }
 
+  .selecionar-movimentacao {
+    margin-right: 0px;
+    width: 80%;
+  }
+
+  input {
+    width: 80%;
+  }
+
+  .img-fechar-aba {
+    display: none;
+  }
+}
+
+@media (max-width: 376px) {
+  .ajustar-texto-botoes,
+  .div-add-fonte,
+  .div-add-data,
+  .div-add-valor {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .selecionar-movimentacao {
+    margin-right: 1px;
+  }
+
+  .img-fechar-aba {
+    display: none;
+  }
+}
+
+@media (max-width: 321px) {
+  .ajustar-texto-botoes,
+  .div-add-fonte,
+  .div-add-data,
+  .div-add-valor {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  label {
+    font-size: 12px;
+  }
+
+  .botoes-movimentacao p {
+    font-size: 12px;
+  }
+
+  .link-cancelar {
+    font-size: 13px;
+  }
+
+  .btn-salvar {
+    font-size: 13px;
+  }
+
+  .img-fechar-aba {
+    display: none;
+  }
 }

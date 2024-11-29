@@ -713,6 +713,7 @@ footer {
 
   .btn-adcionar-movi {
     font-size: 12px;
+    padding: 10px;
   }
 
   .logo-header {
@@ -766,10 +767,6 @@ footer {
     width: 6px;
   }
 
-  .img-caixa-valores {
-    width: 16px;
-  }
-
   .texto-caixa-Entrada,
   .texto-caixa-Saida,
   .texto-caixa-valores {
@@ -790,7 +787,6 @@ footer {
 
   .texto-footer2 {
     font-size: 14px;
-    text-align: center;
   }
 
 }

@@ -145,6 +145,7 @@ def excluir_receita(id_receita):
     cursor.execute('SELECT * FROM RECEITAS r WHERE r.ID_RECEITA = ? AND r.ID_USUARIO = ?', (id_receita, id_usuario))
     if not cursor.fetchone():
         flash('Erro, esta receita não é sua!', 'error')
+        cursor.close()
         return redirect(url_for('dashboard'))
 
     try:
@@ -176,6 +177,7 @@ def excluir_despesa(id_despesa):
     cursor.execute('SELECT * FROM DESPESAS r WHERE r.ID_DESPESA = ? AND r.ID_USUARIO = ?', (id_despesa, id_usuario))
     if not cursor.fetchone():
         flash('Erro, esta despesa não é sua!', 'error')
+        cursor.close()
         return redirect(url_for('dashboard'))
 
     try:
@@ -206,6 +208,7 @@ def editar_despesa(id_despesa):
     cursor1.execute('SELECT * FROM DESPESAS r WHERE r.ID_DESPESA = ? AND r.ID_USUARIO = ?', (id_despesa, id_usuario))
     if not cursor1.fetchone():
         flash('Erro, esta despesa não é sua!', 'error')
+        cursor1.close()
         return redirect(url_for('dashboard'))
 
     if request.method == 'POST':
@@ -244,6 +247,7 @@ def editar_receita(id_receita):
     cursor1.execute('SELECT * FROM RECEITAS r WHERE r.ID_RECEITA = ? AND r.ID_USUARIO = ?', (id_receita, id_usuario))
     if not cursor1.fetchone():
         flash('Erro, esta receita não é sua!', 'error')
+        cursor1.close()
         return redirect(url_for('dashboard'))
 
     if request.method == 'POST':

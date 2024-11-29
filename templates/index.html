@@ -45,9 +45,15 @@
                     </div>
                 </div>
 
-                {% with messages = get_flashed_messages() %}
-                  {% if messages %}
-                      <h3 class="mensagem">{{ messages[-1] }}</h3>
+                {% with erros = get_flashed_messages(category_filter=["error"]) %}
+                  {% if erros %}
+                      <h3 class="mensagem">{{ erros[-1] }}</h3>
+                  {% endif %}
+                {% endwith %}
+
+                {% with mensagensS = get_flashed_messages(category_filter=["success"]) %}
+                  {% if mensagensS %}
+                      <h3 class="mensagem2">{{ mensagensS[-1] }}</h3>
                   {% endif %}
                 {% endwith %}
                 <button type="submit" class="Btn-Entrar">Entrar</button>

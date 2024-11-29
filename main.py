@@ -27,7 +27,7 @@ def calcular_receita():
     cursor = con.cursor()
     cursor.execute('SELECT SUM(VALOR) FROM RECEITAS r WHERE r.ID_USUARIO = ?',
                    (session['id_usuario'],))
-    total = cursor.fetchall() #pode ser utilizado o fetchone
+    total = cursor.fetchall()
     cursor.close()
     return total[0][0] if total else 0
 
@@ -298,7 +298,6 @@ def cadastrar():
             con.close()  # Fechar a conexão
 
         # Após o sucesso, redireciona para a página inicial
-        flash('Conta criada com sucesso!', 'success')
         return redirect(url_for('index'))
 
     # Se for um GET, apenas renderiza o formulário de cadastro

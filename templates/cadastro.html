@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../static/css/cadastro.css">
-  <link rel="icon" type="image/x-icon" href="../static/img/Logo_Oficial.png">
-  
   <title>Cadastro</title>
 </head>
 <body>
@@ -49,7 +47,7 @@
 
         </div>
 
-      {% with messages = get_flashed_messages(category_filter=["error"]) %}
+      {% with messages = get_flashed_messages() %}
       {% if messages %}
           <h1 class="mensagem">{{ messages[-1] }}</h1>
       {% endif %}

@@ -6,12 +6,19 @@
   box-sizing: border-box;
 }
 
-.mensagem {
+.mensagem2 {
   font-size: 16px;
   text-align: center;
   margin-top: 20px;
-  color: green;
+  color: red;
 }
+.mensagem {
+    color: green;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
 
 html {
   scroll-behavior: smooth;

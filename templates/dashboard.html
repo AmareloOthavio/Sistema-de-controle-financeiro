@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&display=swap"
         rel="stylesheet">
 
+    <link rel="icon" type="image/x-icon" href="../static/img/Logo_Oficial.png">
     <title>Planeja Facil</title>
 </head>
 
@@ -115,10 +116,16 @@
     {{ valor_formatado }}
     {% endmacro %}
 
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <h3 class="mensagem">{{ messages[-1] }}</h3>
-    {% endif %}
+    {% with erros = get_flashed_messages(category_filter=["error"]) %}
+      {% if erros %}
+          <h3 class="mensagem2">{{ erros[-1] }}</h3>
+      {% endif %}
+    {% endwith %}
+
+    {% with mensagensS = get_flashed_messages(category_filter=["success"]) %}
+      {% if mensagensS %}
+          <h3 class="mensagem">{{ mensagensS[-1] }}</h3>
+      {% endif %}
     {% endwith %}
 
     <div class="ajuste-responsivo">

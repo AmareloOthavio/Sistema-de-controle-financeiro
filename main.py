@@ -140,6 +140,13 @@ def excluir_receita(id_receita):
     con = conectar_no_banco()
     cursor = con.cursor()
 
+    # Verificar se a receita condiz com o usuário
+    id_usuario = session['id_usuario']
+    cursor.execute('SELECT * FROM RECEITAS r WHERE r.ID_RECEITA = ? AND r.ID_USUARIO = ?', (id_receita, id_usuario))
+    if not cursor.fetchone():
+        flash('Erro, esta receita não é sua!', 'error')
+        return redirect(url_for('dashboard'))
+
     try:
         cursor.execute('DELETE FROM RECEITAS WHERE ID_RECEITA = ?', (id_receita,))
         con.commit()
@@ -157,13 +164,19 @@ def excluir_receita(id_receita):
 @app.route('/excluir_despesa/<int:id_despesa>')
 def excluir_despesa(id_despesa):
 
-
     if 'id_usuario' not in session:
         flash('Erro, você precisa estar em uma conta', 'error')
         return redirect(url_for('index'))
 
     con = conectar_no_banco()
     cursor = con.cursor()
+
+    # Verificar se a despesa condiz com o usuário
+    id_usuario = session['id_usuario']
+    cursor.execute('SELECT * FROM DESPESAS r WHERE r.ID_DESPESA = ? AND r.ID_USUARIO = ?', (id_despesa, id_usuario))
+    if not cursor.fetchone():
+        flash('Erro, esta despesa não é sua!', 'error')
+        return redirect(url_for('dashboard'))
 
     try:
         cursor.execute('DELETE FROM DESPESAS WHERE ID_DESPESA = ?', (id_despesa,))
@@ -186,11 +199,19 @@ def editar_despesa(id_despesa):
         return redirect(url_for('index'))
 
     con = conectar_no_banco()
+    cursor1 = con.cursor()
+
+    # Verificar se a despesa condiz com o usuário
+    id_usuario = session['id_usuario']
+    cursor1.execute('SELECT * FROM DESPESAS r WHERE r.ID_DESPESA = ? AND r.ID_USUARIO = ?', (id_despesa, id_usuario))
+    if not cursor1.fetchone():
+        flash('Erro, esta despesa não é sua!', 'error')
+        return redirect(url_for('dashboard'))
+
     if request.method == 'POST':
         valor = request.form['valor']
         data = request.form['data']
         fonte_desc = request.form['fonte_desc']
-        cursor1 = con.cursor()
 
         cursor1.execute('UPDATE DESPESAS SET VALOR = ?, DATA = ?, DESCRICAO = ? WHERE ID_DESPESA = ?',
                         (valor, data, fonte_desc, id_despesa))
@@ -216,11 +237,19 @@ def editar_receita(id_receita):
         return redirect(url_for('index'))
 
     con = conectar_no_banco()
+    cursor1 = con.cursor()
+
+    # Verificar se a receita condiz com o usuário
+    id_usuario = session['id_usuario']
+    cursor1.execute('SELECT * FROM RECEITAS r WHERE r.ID_RECEITA = ? AND r.ID_USUARIO = ?', (id_receita, id_usuario))
+    if not cursor1.fetchone():
+        flash('Erro, esta receita não é sua!', 'error')
+        return redirect(url_for('dashboard'))
+
     if request.method == 'POST':
         valor = request.form['valor']
         data = request.form['data']
         fonte_desc = request.form['fonte_desc']
-        cursor1 = con.cursor()
 
         cursor1.execute('UPDATE RECEITAS SET VALOR = ?, DATA = ?, FONTE = ? WHERE ID_RECEITA = ?',
                         (valor, data, fonte_desc, id_receita))
